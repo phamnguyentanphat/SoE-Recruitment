@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Solutions Engineer @ Base.vn — Hướng dẫn cho ứng viên</title>
 <meta name="description" content="Vị trí Solutions Engineer (SoE) tại Base.vn: SoE là gì, chân dung SoE giỏi, hành trình phát triển, năng lực cần build, tôi có phù hợp, và career path." />
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VPZH1412XM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VPZH1412XM');
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
@@ -1685,18 +1693,19 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
  }else run();
 })();
 
-/* ============ ANALYTICS (tạm thời cục bộ: console + localStorage) ============ *
+/* ============ ANALYTICS (localStorage nội bộ + gửi song song tới GA4) ============ *
  * Đo thời gian xem mỗi tab + số lần bấm theo khu vực trong tab.
- * LƯU Ý: dữ liệu chỉ nằm trên trình duyệt của từng người xem (localStorage),
- * KHÔNG tổng hợp được nhiều người xem cùng lúc. Khi có project ID của một dịch vụ
- * thật (Microsoft Clarity / GA4...), thay phần save()/logSummary() bên dưới bằng
- * lệnh gửi sự kiện tới dịch vụ đó — cấu trúc dữ liệu (tabTime/clicks) giữ nguyên. */
+ * Bản localStorage chỉ để debug nhanh trên máy — số liệu tổng hợp thật nằm trong GA4
+ * (project G-VPZH1412XM, xem Realtime/Events). Mọi sự kiện gửi qua hàm ga() bên dưới. */
 (function(){
  var KEY='soe_analytics_v1';
  var data={ tabTime:{}, clicks:{}, sessions:0 };
  try{ var saved=JSON.parse(localStorage.getItem(KEY)||'null'); if(saved) data=saved; }catch(e){}
  data.sessions=(data.sessions||0)+1;
  var curTab=null, tabStart=null;
+
+ function ga(name,params){ try{ if(typeof gtag==='function') gtag('event',name,params||{}); }catch(e){} }
+ window.soeGA=ga; // dùng lại ở IIFE game (archetype/level/journey) bên dưới
 
  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(data)); }catch(e){} }
  function logSummary(){
@@ -1713,6 +1722,7 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
    closeTab();
    curTab=e.detail.id; tabStart=Date.now();
    save(); logSummary();
+   ga('tab_view',{tab_id:curTab});
  });
  document.addEventListener('visibilitychange', function(){
    if(document.hidden){ closeTab(); save(); }
@@ -1722,14 +1732,20 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
 
  /* tab đầu tiên đã activateTab() trước khi IIFE này kịp đăng ký listener — khởi tạo thủ công */
  var already=document.querySelector('.tabpanel-main.on');
- if(already){ curTab=already.id; tabStart=Date.now(); }
+ if(already){ curTab=already.id; tabStart=Date.now(); ga('tab_view',{tab_id:curTab}); }
 
  var ZONES=[
    ['.maintabs button','pill-tab'],
    ['.tab-nextbar a,.tab-nextbar button','nextbar'],
    ['.finalcta-inline a','final-cta'],
+   ['.journey-recap a','apply-recap'],
+   ['#recap-copy','recap-copy'],
    ['.check-item','checklist-item'],
    ['.quiz-option','quiz-answer'],
+   ['.arch-opt','archetype-answer'],
+   ['#arch-go','archetype-confirm'],
+   ['.gi-cta','game-start'],
+   ['.flappy-sound','sound-toggle'],
    ['.corebar button','core-competency'],
    ['.spectabs button','specialist-tab'],
    ['details.acc summary','archetype-accordion'],
@@ -1742,7 +1758,7 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
  document.addEventListener('click', function(e){
    for(var i=0;i<ZONES.length;i++){
      var m=e.target.closest(ZONES[i][0]);
-     if(m){ data.clicks[ZONES[i][1]]=(data.clicks[ZONES[i][1]]||0)+1; save(); return; }
+     if(m){ data.clicks[ZONES[i][1]]=(data.clicks[ZONES[i][1]]||0)+1; save(); ga('click_zone',{zone:ZONES[i][1]}); return; }
    }
  });
 
@@ -1896,7 +1912,7 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
          '</div>'+
        '</div>';
      container.querySelector('#arch-retry').addEventListener('click',function(){ answers=[]; renderQ(0); });
-     container.querySelector('#arch-go').addEventListener('click',function(){ saveArchetype(key); onDone(); });
+     container.querySelector('#arch-go').addEventListener('click',function(){ saveArchetype(key); if(window.soeGA) soeGA('archetype_selected',{archetype:key}); onDone(); });
    }
    renderQ(0);
  }
@@ -2047,7 +2063,7 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
    gate.classList.add('stage-hidden');
    showContent(section);
    replayReveal(section);
-   if(i===5) buildRecap(true);
+   if(i===5){ buildRecap(true); if(window.soeGA) soeGA('journey_completed',{archetype:getArchetype()||''}); }
  }
 
  function buildRecap(celebrate){
@@ -2317,11 +2333,13 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
        root.appendChild(msg);
        SFX.win();
        burstConfetti(root, i===5?42:18, [cfg.pipe, av.color, '#fff']);
+       if(window.soeGA) soeGA('level_cleared',{level_index:i+1,level_name:cfg.name,hits:hitsTaken,time_sec:Math.round(elapsedSec)});
        setTimeout(onWin,900);
      }else{
        msg.innerHTML='<div class="icon"><svg><use href="#i-x"/></svg></div><b>Đã hết sức chịu đựng — hít thở rồi thử lại.</b><p>Bấm bất kỳ đâu để chơi lại. Không mất tiến trình các giai đoạn trước.</p>';
        root.appendChild(msg);
        SFX.lose();
+       if(window.soeGA) soeGA('level_failed',{level_index:i+1,level_name:cfg.name});
      }
    }
    function render(dt){
@@ -2388,7 +2406,7 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
    }
    root.addEventListener('click',flap);
    root.addEventListener('keydown',function(e){ if(e.code==='Space'||e.code==='Enter'){ e.preventDefault(); flap(); } });
-   root.querySelector('.flappy-sound').addEventListener('click',function(e){ e.stopPropagation(); setSoundOn(!soundOn); });
+   root.querySelector('.flappy-sound').addEventListener('click',function(e){ e.stopPropagation(); setSoundOn(!soundOn); if(window.soeGA) soeGA('click_zone',{zone:'sound-toggle'}); });
    reset();
    rafId=requestAnimationFrame(loop);
  }
