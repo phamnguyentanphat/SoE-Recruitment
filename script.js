@@ -267,13 +267,18 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
    if(counter) counter.textContent='Đã chọn '+any+'/'+CHECKS.length;
    if(!any){box.classList.remove('on');return;}
    box.classList.add('on');
+   var resultLabel;
    if(neg>=2){box.style.background='var(--neg-soft)';box.style.borderColor='#F3D0CE';
      box.innerHTML='<b style="color:var(--neg)">Hãy cân nhắc thêm</b><p>Bạn chọn một số điểm "không phù hợp". Không sao — có thể lúc này chưa phải thời điểm đúng. Base phù hợp nhất khi bạn ưu tiên growth tốc độ và learning thực chiến hơn sự an toàn của môi trường structured.</p>';
+     resultLabel='Cân nhắc thêm';
    }else if(pos>=3){box.style.background='var(--pos-soft)';box.style.borderColor='#CBEBD5';
      box.innerHTML='<b style="color:var(--pos)">Có vẻ bạn đang phù hợp</b><p>Những gì bạn chọn cho thấy mindset phù hợp với SoE tại Base. Bước tiếp theo: apply và để buổi phỏng vấn vòng 2 với SoE Leader xác nhận thêm — đó là nơi cả hai bên thực sự hiểu nhau.</p>';
+     resultLabel='Phù hợp';
    }else{box.style.background='var(--bg-tint)';box.style.borderColor='var(--line)';
      box.innerHTML='<p>Tiếp tục chọn để xem kết quả phân tích rõ hơn.</p>';
+     resultLabel='Trung lập';
    }
+   if(window.soeGA) soeGA('self_check_result',{yes_count:pos,no_count:neg,result_label:resultLabel});
  }
 })();
 
@@ -493,14 +498,20 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
    console.log('%c[SoE Analytics] Số lần bấm theo khu vực:','color:#1650EF;font-weight:700');
    console.table(Object.keys(data.clicks).map(function(k){ return {khu_vuc:k, so_lan:data.clicks[k]}; }));
  }
+ /* #1: TAB VIEW DURATION — tên tab hiển thị, khớp TAB_LABELS trong IIFE điều hướng chính
+    (duplicate hằng số nhỏ theo đúng tiền lệ đã có trong file, không share global) */
+ var TAB_NAMES={ 'soe-la-gi':'SoE là gì','chan-dung':'Chân dung SoE giỏi','hanh-trinh':'Hành trình phát triển','nang-luc':'Năng lực cần build','phu-hop':'Tôi có phù hợp?','career-path':'Career path' };
  function closeTab(){
-   if(curTab && tabStart){ data.tabTime[curTab]=(data.tabTime[curTab]||0)+(Date.now()-tabStart); }
+   if(curTab && tabStart){
+     var ms=Date.now()-tabStart;
+     data.tabTime[curTab]=(data.tabTime[curTab]||0)+ms;
+     ga('tab_view',{ tab_name: TAB_NAMES[curTab]||curTab, duration_seconds: Math.round(ms/1000) });
+   }
  }
  window.addEventListener('soe:tabchange', function(e){
    closeTab();
    curTab=e.detail.id; tabStart=Date.now();
    save(); logSummary();
-   ga('tab_view',{tab_id:curTab});
  });
  document.addEventListener('visibilitychange', function(){
    if(document.hidden){ closeTab(); save(); }
@@ -510,7 +521,7 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
 
  /* tab đầu tiên đã activateTab() trước khi IIFE này kịp đăng ký listener — khởi tạo thủ công */
  var already=document.querySelector('.tabpanel-main.on');
- if(already){ curTab=already.id; tabStart=Date.now(); ga('tab_view',{tab_id:curTab}); }
+ if(already){ curTab=already.id; tabStart=Date.now(); }
 
  var ZONES=[
    ['.maintabs button','pill-tab'],
@@ -538,6 +549,49 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
      var m=e.target.closest(ZONES[i][0]);
      if(m){ data.clicks[ZONES[i][1]]=(data.clicks[ZONES[i][1]]||0)+1; save(); ga('click_zone',{zone:ZONES[i][1]}); return; }
    }
+ });
+
+ /* #2: LINK / BUTTON CLICK — mọi link ra ngoài (target=_blank hoặc href bắt đầu bằng http)
+    + 1 số nút CTA quan trọng không phải thẻ <a> (sub-tab career path, nút mở rộng card) */
+ var CTA_EXTRA=[
+   ['.tabs [data-cp]','career-path-subtab'],
+   ['details.acc summary','expand-card']
+ ];
+ document.addEventListener('click', function(e){
+   var a=e.target.closest('a');
+   if(a){
+     var href=a.getAttribute('href')||'';
+     var isExternal = a.target==='_blank' || /^https?:\/\//i.test(href);
+     if(isExternal){
+       ga('link_click',{ link_name:(a.textContent||'').trim().slice(0,80)||href, destination:href });
+       return;
+     }
+   }
+   for(var j=0;j<CTA_EXTRA.length;j++){
+     var cm=e.target.closest(CTA_EXTRA[j][0]);
+     if(cm){ ga('link_click',{ link_name:CTA_EXTRA[j][1]+':'+(cm.textContent||'').trim().slice(0,60), destination:'internal:'+CTA_EXTRA[j][1] }); return; }
+   }
+ });
+
+ /* #4: APPLY BUTTON — bắn 1 lần duy nhất khi nút Apply (careers.base.vn) thật sự xuất hiện
+    trên màn hình (IntersectionObserver, không chỉ "đã mở khoá trong DOM"), và mỗi lần bấm */
+ var applyShown=false;
+ function markApplyShown(){ if(applyShown) return; applyShown=true; ga('apply_button_shown',{}); }
+ function observeApplyLinks(){
+   var els=document.querySelectorAll('a[href="https://careers.base.vn"]');
+   if(!('IntersectionObserver' in window)){
+     els.forEach(function(a){ if(a.offsetParent!==null) markApplyShown(); });
+     return;
+   }
+   var io=new IntersectionObserver(function(entries){
+     entries.forEach(function(en){ if(en.isIntersecting) markApplyShown(); });
+   },{threshold:.1});
+   els.forEach(function(a){ io.observe(a); });
+ }
+ window.soeObserveApply=observeApplyLinks; // gọi lại khi có link Apply mới tạo động (màn tổng kết cuối)
+ observeApplyLinks();
+ document.addEventListener('click', function(e){
+   if(e.target.closest('a[href="https://careers.base.vn"]')) ga('apply_button_click',{});
  });
 
  save();
@@ -864,6 +918,7 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
        '<button class="btn btn-outline-dark" id="recap-copy" type="button">Sao chép kết quả →</button>'+
        '<a class="btn btn-dark" href="https://careers.base.vn" target="_blank" rel="noopener">Apply tại careers.base.vn →</a>'+
      '</div>';
+   if(window.soeObserveApply) soeObserveApply(); // link Apply mới tạo động ở đây — quan sát thêm để bắt sự kiện "xuất hiện"
    if(celebrate) burstConfetti(el,40,['#fff','#FFD166','#7FA6FF','#8AF0C0']);
    var copyBtn=document.getElementById('recap-copy');
    copyBtn.addEventListener('click',function(){
@@ -1001,6 +1056,7 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
    var ceilLethal = mode!=='run';
    var floorLethal = mode==='fly' || mode==='precision';
    var TOP_SAFE=82; // vùng an toàn cho chữ HUD (thanh chịu đựng + tên chặng) — chướng ngại không được vẽ vào đây
+   var attemptCount=0; // #3: đếm số lượt chơi (kể cả chơi lại sau khi thua) của riêng level này
 
    function size(){ H=root.clientHeight; W=root.clientWidth; }
    function updateHealthUI(){
@@ -1008,6 +1064,7 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
      hpNum.textContent=health;
    }
    function reset(){
+     attemptCount++;
      size();
      birdY = mode==='run' ? H-6-38 : H/2-19;
      birdV=0; obstacles=[]; score=0; health=100; invulnT=0; running=true; started=false; startedAt=null; lastT=null; sinceSpawn=0; streak=0; yHist=[];
@@ -1111,13 +1168,13 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
        root.appendChild(msg);
        SFX.win();
        burstConfetti(root, i===5?42:18, [cfg.pipe, av.color, '#fff']);
-       if(window.soeGA) soeGA('level_cleared',{level_index:i+1,level_name:cfg.name,hits:hitsTaken,time_sec:Math.round(elapsedSec)});
+       if(window.soeGA) soeGA('game_level_complete',{level:i+1,level_name:cfg.name,hits:hitsTaken,time_sec:Math.round(elapsedSec),retry_count:attemptCount-1});
        setTimeout(onWin,900);
      }else{
        msg.innerHTML='<div class="icon"><svg><use href="#i-x"/></svg></div><b>Đã hết sức chịu đựng — hít thở rồi thử lại.</b><p>Bấm bất kỳ đâu để chơi lại. Không mất tiến trình các giai đoạn trước.</p>';
        root.appendChild(msg);
        SFX.lose();
-       if(window.soeGA) soeGA('level_failed',{level_index:i+1,level_name:cfg.name});
+       if(window.soeGA) soeGA('game_level_fail',{level:i+1,level_name:cfg.name,retry_count:attemptCount-1});
      }
    }
    function render(dt){
@@ -1184,9 +1241,13 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
    }
    root.addEventListener('click',flap);
    root.addEventListener('keydown',function(e){ if(e.code==='Space'||e.code==='Enter'){ e.preventDefault(); flap(); } });
-   root.querySelector('.flappy-sound').addEventListener('click',function(e){ e.stopPropagation(); setSoundOn(!soundOn); if(window.soeGA) soeGA('click_zone',{zone:'sound-toggle'}); });
+   root.querySelector('.flappy-sound').addEventListener('click',function(e){
+     e.stopPropagation(); setSoundOn(!soundOn);
+     if(window.soeGA){ soeGA('click_zone',{zone:'sound-toggle'}); soeGA('sound_toggle',{state:soundOn?'on':'off'}); }
+   });
    reset();
    rafId=requestAnimationFrame(loop);
+   if(window.soeGA) soeGA('game_level_start',{level:i+1,level_name:cfg.name});
  }
 
  var gateBuilt={};
