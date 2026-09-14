@@ -1,545 +1,838 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Solutions Engineer @ Base.vn — Hướng dẫn cho ứng viên</title>
-<meta name="description" content="Vị trí Solutions Engineer (SoE) tại Base.vn: SoE là gì, chân dung SoE giỏi, hành trình phát triển, năng lực cần build, tôi có phù hợp, và career path." />
-<!-- Google Analytics (GA4) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VPZH1412XM"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-VPZH1412XM');
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Solutions Engineer @ Base.vn — Hướng dẫn cho ứng viên</title>
+  <meta name="description"
+    content="Vị trí Solutions Engineer (SoE) tại Base.vn: SoE là gì, chân dung SoE giỏi, hành trình phát triển, năng lực cần build, tôi có phù hợp, và career path." />
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VPZH1412XM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-VPZH1412XM');
+  </script>
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "yi2b3k26wf");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@500;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-<symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
-<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
-<symbol id="i-briefcase" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
-<symbol id="i-spark" viewBox="0 0 24 24"><path d="M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.14-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.14a.5.5 0 0 1 .96 0L14.06 8.5A2 2 0 0 0 15.5 9.94l6.14 1.58a.5.5 0 0 1 0 .96L15.5 14.06a2 2 0 0 0-1.44 1.44l-1.58 6.14a.5.5 0 0 1-.96 0z"/></symbol>
-<symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
-<symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></symbol>
-<symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></symbol>
-<symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol>
-<symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
-<symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
-<symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
-<symbol id="i-vol" viewBox="0 0 24 24"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="currentColor" stroke="none"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></symbol>
-<symbol id="i-mute" viewBox="0 0 24 24"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="currentColor" stroke="none"/><line x1="16" y1="9" x2="22" y2="15"/><line x1="22" y1="9" x2="16" y2="15"/></symbol>
-<!-- Nhân vật archetype — thiết kế gốc phong cách phẳng nhiều mặt, không sao chép ảnh mẫu có bản quyền -->
-<symbol id="i-arch-technician" viewBox="0 0 100 100">
-  <circle cx="50" cy="50" r="48" fill="#1650EF"/>
-  <polygon points="50,4 90,50 50,96 10,50" fill="#3B6BFF" opacity=".35"/>
-  <polygon points="40,70 48,70 46,93 37,93" fill="#0F3FC7"/>
-  <polygon points="37,93 47,93 46,97 36,97" fill="#0A2E96"/>
-  <polygon points="52,70 60,70 65,91 55,95" fill="#124BE0"/>
-  <polygon points="55,95 65,91 65,96 54,99" fill="#0A2E96"/>
-  <polygon points="36,62 64,62 62,71 38,71" fill="#EAF0FF"/>
-  <polygon points="38,40 62,40 64,62 36,62" fill="#F5F8FF"/>
-  <polygon points="50,40 62,40 64,62 50,62" fill="#C7D6FF"/>
-  <polygon points="45,33 55,33 56,40 44,40" fill="#EAF0FF"/>
-  <circle cx="50" cy="25" r="11" fill="#EAF0FF"/>
-  <path d="M50 14a11 11 0 0 1 0 22 11 11 0 0 0 0-22Z" fill="#C7D6FF" opacity=".55"/>
-  <polygon points="36,42 42,42 40,60 34,59" fill="#F5F8FF"/>
-  <g transform="rotate(-25 66 44)">
-    <rect x="61" y="30" width="9" height="26" rx="4" fill="#F5F8FF"/>
-  </g>
-  <g transform="rotate(20 74 24)">
-    <rect x="70" y="14" width="8" height="24" rx="3" fill="#fff"/>
-    <circle cx="74" cy="12" r="6" fill="none" stroke="#fff" stroke-width="3.4"/>
-  </g>
-</symbol>
-<symbol id="i-arch-storyteller" viewBox="0 0 100 100">
-  <circle cx="50" cy="50" r="48" fill="#B7791F"/>
-  <polygon points="50,4 90,50 50,96 10,50" fill="#D9973B" opacity=".35"/>
-  <polygon points="38,70 46,70 45,93 36,94" fill="#8C5A13"/>
-  <polygon points="36,94 46,93 45,97 35,98" fill="#6B4310"/>
-  <polygon points="52,70 61,71 58,92 49,94" fill="#9C6519"/>
-  <polygon points="49,94 58,92 58,96 48,98" fill="#6B4310"/>
-  <polygon points="37,62 63,62 61,71 39,71" fill="#FFF3DE"/>
-  <polygon points="39,41 61,41 63,62 37,62" fill="#FFFAF0"/>
-  <polygon points="50,41 61,41 63,62 50,62" fill="#F3D9A6"/>
-  <polygon points="45,34 55,34 56,41 44,41" fill="#FFF3DE"/>
-  <circle cx="49" cy="26" r="11" fill="#FFF3DE"/>
-  <path d="M49 15a11 11 0 0 1 0 22 11 11 0 0 0 0-22Z" fill="#F3D9A6" opacity=".55"/>
-  <polygon points="63,44 69,42 68,60 61,60" fill="#FFFAF0"/>
-  <polygon points="38,45 45,47 34,29 27,30" fill="#FFF3DE"/>
-  <circle cx="27" cy="27" r="5" fill="#FFF3DE"/>
-  <rect x="2" y="4" width="27" height="18" rx="6" fill="#FFE3A8"/>
-  <polygon points="14,22 24,22 19,30" fill="#FFE3A8"/>
-  <circle cx="11" cy="13" r="2.1" fill="#6B4310"/>
-  <circle cx="17" cy="13" r="2.1" fill="#6B4310"/>
-  <circle cx="23" cy="13" r="2.1" fill="#6B4310"/>
-</symbol>
-<symbol id="i-arch-consultant" viewBox="0 0 100 100">
-  <circle cx="50" cy="50" r="48" fill="#15803D"/>
-  <polygon points="50,4 90,50 50,96 10,50" fill="#2FA85E" opacity=".35"/>
-  <polygon points="39,70 47,70 46,94 37,94" fill="#0E5C2B"/>
-  <polygon points="37,94 47,94 46,98 36,98" fill="#0A4520"/>
-  <polygon points="53,70 61,70 62,94 53,94" fill="#12703A"/>
-  <polygon points="53,94 62,94 62,98 52,98" fill="#0A4520"/>
-  <polygon points="37,62 63,62 61,71 39,71" fill="#D9F5E2"/>
-  <polygon points="39,41 61,41 63,62 37,62" fill="#EAFBF0"/>
-  <polygon points="46,41 54,41 58,62 42,62" fill="#0E5C2B"/>
-  <polygon points="45,34 55,34 56,41 44,41" fill="#EAFBF0"/>
-  <circle cx="50" cy="26" r="11" fill="#EAFBF0"/>
-  <polygon points="37,43 43,43 41,60 35,59" fill="#D9F5E2"/>
-  <g transform="rotate(15 66 46)">
-    <rect x="61" y="34" width="9" height="24" rx="4" fill="#EAFBF0"/>
-  </g>
-  <circle cx="78" cy="58" r="11" fill="none" stroke="#EAFBF0" stroke-width="4.5"/>
-  <line x1="85" y1="65" x2="91" y2="71" stroke="#EAFBF0" stroke-width="4.5" stroke-linecap="round"/>
-</symbol>
-<symbol id="i-arch-hybrid" viewBox="0 0 100 100">
-  <circle cx="50" cy="50" r="48" fill="#6D5BD0"/>
-  <polygon points="50,4 90,50 50,96 10,50" fill="#8B7BE0" opacity=".35"/>
-  <polygon points="15,74 21,74 20,92 14,92" fill="#4B3BA8"/>
-  <polygon points="24,74 30,74 31,92 25,92" fill="#4B3BA8"/>
-  <polygon points="14,64 31,64 29,75 16,75" fill="#B9AEF2"/>
-  <polygon points="15,46 30,46 31,64 14,64" fill="#C9BFFF"/>
-  <polygon points="22,46 30,46 31,64 22,64" fill="#9C8CE8"/>
-  <circle cx="22" cy="35" r="9" fill="#C9BFFF"/>
-  <polygon points="55,72 62,72 61,95 53,95" fill="#4B3BA8"/>
-  <polygon points="53,95 61,95 60,98 52,98" fill="#392C82"/>
-  <polygon points="66,72 74,72 78,93 69,96" fill="#5A48C0"/>
-  <polygon points="69,96 78,93 78,97 68,99" fill="#392C82"/>
-  <polygon points="53,62 77,62 75,73 55,73" fill="#EDE9FF"/>
-  <polygon points="54,41 76,41 77,62 53,62" fill="#F5F3FF"/>
-  <polygon points="65,41 76,41 77,62 65,62" fill="#C9BFFF"/>
-  <polygon points="61,34 69,34 70,41 60,41" fill="#F5F3FF"/>
-  <circle cx="65" cy="26" r="11.5" fill="#F5F3FF"/>
-  <path d="M65 14.5a11.5 11.5 0 0 1 0 23 11.5 11.5 0 0 0 0-23Z" fill="#C9BFFF" opacity=".55"/>
-  <polygon points="54,45 60,47 35,40 33,35" fill="#F5F3FF"/>
-</symbol>
-<symbol id="i-logo" viewBox="0 0 100 100">
-  <circle cx="50" cy="50" r="50" fill="#132C6C"/>
-  <rect x="26" y="33" width="14" height="34" rx="7" fill="#fff"/>
-  <rect x="43" y="18" width="14" height="64" rx="7" fill="#fff"/>
-  <rect x="60" y="28" width="14" height="44" rx="7" fill="#fff"/>
-</symbol>
-</defs></svg>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-wrench" viewBox="0 0 24 24">
+        <path
+          d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+      </symbol>
+      <symbol id="i-target" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <circle cx="12" cy="12" r="6" />
+        <circle cx="12" cy="12" r="2" />
+      </symbol>
+      <symbol id="i-briefcase" viewBox="0 0 24 24">
+        <rect width="20" height="14" x="2" y="7" rx="2" />
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+      </symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24">
+        <path
+          d="M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.14-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.14a.5.5 0 0 1 .96 0L14.06 8.5A2 2 0 0 0 15.5 9.94l6.14 1.58a.5.5 0 0 1 0 .96L15.5 14.06a2 2 0 0 0-1.44 1.44l-1.58 6.14a.5.5 0 0 1-.96 0z" />
+      </symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24">
+        <path
+          d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
+        <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
+        <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
+      </symbol>
+      <symbol id="i-flag" viewBox="0 0 24 24">
+        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+        <line x1="4" x2="4" y1="22" y2="15" />
+      </symbol>
+      <symbol id="i-compass" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+      </symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24">
+        <path d="M3 3v16a2 2 0 0 0 2 2h16" />
+        <path d="M18 17V9" />
+        <path d="M13 17V5" />
+        <path d="M8 17v-3" />
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12" />
+      </symbol>
+      <symbol id="i-x" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24">
+        <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </symbol>
+      <symbol id="i-vol" viewBox="0 0 24 24">
+        <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="currentColor" stroke="none" />
+        <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+        <path d="M18.5 5.5a9 9 0 0 1 0 13" />
+      </symbol>
+      <symbol id="i-mute" viewBox="0 0 24 24">
+        <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="currentColor" stroke="none" />
+        <line x1="16" y1="9" x2="22" y2="15" />
+        <line x1="22" y1="9" x2="16" y2="15" />
+      </symbol>
+      <!-- Nhân vật archetype — thiết kế gốc phong cách phẳng nhiều mặt, không sao chép ảnh mẫu có bản quyền -->
+      <symbol id="i-arch-technician" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="48" fill="#1650EF" />
+        <polygon points="50,4 90,50 50,96 10,50" fill="#3B6BFF" opacity=".35" />
+        <polygon points="40,70 48,70 46,93 37,93" fill="#0F3FC7" />
+        <polygon points="37,93 47,93 46,97 36,97" fill="#0A2E96" />
+        <polygon points="52,70 60,70 65,91 55,95" fill="#124BE0" />
+        <polygon points="55,95 65,91 65,96 54,99" fill="#0A2E96" />
+        <polygon points="36,62 64,62 62,71 38,71" fill="#EAF0FF" />
+        <polygon points="38,40 62,40 64,62 36,62" fill="#F5F8FF" />
+        <polygon points="50,40 62,40 64,62 50,62" fill="#C7D6FF" />
+        <polygon points="45,33 55,33 56,40 44,40" fill="#EAF0FF" />
+        <circle cx="50" cy="25" r="11" fill="#EAF0FF" />
+        <path d="M50 14a11 11 0 0 1 0 22 11 11 0 0 0 0-22Z" fill="#C7D6FF" opacity=".55" />
+        <polygon points="36,42 42,42 40,60 34,59" fill="#F5F8FF" />
+        <g transform="rotate(-25 66 44)">
+          <rect x="61" y="30" width="9" height="26" rx="4" fill="#F5F8FF" />
+        </g>
+        <g transform="rotate(20 74 24)">
+          <rect x="70" y="14" width="8" height="24" rx="3" fill="#fff" />
+          <circle cx="74" cy="12" r="6" fill="none" stroke="#fff" stroke-width="3.4" />
+        </g>
+      </symbol>
+      <symbol id="i-arch-storyteller" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="48" fill="#B7791F" />
+        <polygon points="50,4 90,50 50,96 10,50" fill="#D9973B" opacity=".35" />
+        <polygon points="38,70 46,70 45,93 36,94" fill="#8C5A13" />
+        <polygon points="36,94 46,93 45,97 35,98" fill="#6B4310" />
+        <polygon points="52,70 61,71 58,92 49,94" fill="#9C6519" />
+        <polygon points="49,94 58,92 58,96 48,98" fill="#6B4310" />
+        <polygon points="37,62 63,62 61,71 39,71" fill="#FFF3DE" />
+        <polygon points="39,41 61,41 63,62 37,62" fill="#FFFAF0" />
+        <polygon points="50,41 61,41 63,62 50,62" fill="#F3D9A6" />
+        <polygon points="45,34 55,34 56,41 44,41" fill="#FFF3DE" />
+        <circle cx="49" cy="26" r="11" fill="#FFF3DE" />
+        <path d="M49 15a11 11 0 0 1 0 22 11 11 0 0 0 0-22Z" fill="#F3D9A6" opacity=".55" />
+        <polygon points="63,44 69,42 68,60 61,60" fill="#FFFAF0" />
+        <polygon points="38,45 45,47 34,29 27,30" fill="#FFF3DE" />
+        <circle cx="27" cy="27" r="5" fill="#FFF3DE" />
+        <rect x="2" y="4" width="27" height="18" rx="6" fill="#FFE3A8" />
+        <polygon points="14,22 24,22 19,30" fill="#FFE3A8" />
+        <circle cx="11" cy="13" r="2.1" fill="#6B4310" />
+        <circle cx="17" cy="13" r="2.1" fill="#6B4310" />
+        <circle cx="23" cy="13" r="2.1" fill="#6B4310" />
+      </symbol>
+      <symbol id="i-arch-consultant" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="48" fill="#15803D" />
+        <polygon points="50,4 90,50 50,96 10,50" fill="#2FA85E" opacity=".35" />
+        <polygon points="39,70 47,70 46,94 37,94" fill="#0E5C2B" />
+        <polygon points="37,94 47,94 46,98 36,98" fill="#0A4520" />
+        <polygon points="53,70 61,70 62,94 53,94" fill="#12703A" />
+        <polygon points="53,94 62,94 62,98 52,98" fill="#0A4520" />
+        <polygon points="37,62 63,62 61,71 39,71" fill="#D9F5E2" />
+        <polygon points="39,41 61,41 63,62 37,62" fill="#EAFBF0" />
+        <polygon points="46,41 54,41 58,62 42,62" fill="#0E5C2B" />
+        <polygon points="45,34 55,34 56,41 44,41" fill="#EAFBF0" />
+        <circle cx="50" cy="26" r="11" fill="#EAFBF0" />
+        <polygon points="37,43 43,43 41,60 35,59" fill="#D9F5E2" />
+        <g transform="rotate(15 66 46)">
+          <rect x="61" y="34" width="9" height="24" rx="4" fill="#EAFBF0" />
+        </g>
+        <circle cx="78" cy="58" r="11" fill="none" stroke="#EAFBF0" stroke-width="4.5" />
+        <line x1="85" y1="65" x2="91" y2="71" stroke="#EAFBF0" stroke-width="4.5" stroke-linecap="round" />
+      </symbol>
+      <symbol id="i-arch-hybrid" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="48" fill="#6D5BD0" />
+        <polygon points="50,4 90,50 50,96 10,50" fill="#8B7BE0" opacity=".35" />
+        <polygon points="15,74 21,74 20,92 14,92" fill="#4B3BA8" />
+        <polygon points="24,74 30,74 31,92 25,92" fill="#4B3BA8" />
+        <polygon points="14,64 31,64 29,75 16,75" fill="#B9AEF2" />
+        <polygon points="15,46 30,46 31,64 14,64" fill="#C9BFFF" />
+        <polygon points="22,46 30,46 31,64 22,64" fill="#9C8CE8" />
+        <circle cx="22" cy="35" r="9" fill="#C9BFFF" />
+        <polygon points="55,72 62,72 61,95 53,95" fill="#4B3BA8" />
+        <polygon points="53,95 61,95 60,98 52,98" fill="#392C82" />
+        <polygon points="66,72 74,72 78,93 69,96" fill="#5A48C0" />
+        <polygon points="69,96 78,93 78,97 68,99" fill="#392C82" />
+        <polygon points="53,62 77,62 75,73 55,73" fill="#EDE9FF" />
+        <polygon points="54,41 76,41 77,62 53,62" fill="#F5F3FF" />
+        <polygon points="65,41 76,41 77,62 65,62" fill="#C9BFFF" />
+        <polygon points="61,34 69,34 70,41 60,41" fill="#F5F3FF" />
+        <circle cx="65" cy="26" r="11.5" fill="#F5F3FF" />
+        <path d="M65 14.5a11.5 11.5 0 0 1 0 23 11.5 11.5 0 0 0 0-23Z" fill="#C9BFFF" opacity=".55" />
+        <polygon points="54,45 60,47 35,40 33,35" fill="#F5F3FF" />
+      </symbol>
+      <symbol id="i-logo" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="50" fill="#132C6C" />
+        <rect x="26" y="33" width="14" height="34" rx="7" fill="#fff" />
+        <rect x="43" y="18" width="14" height="64" rx="7" fill="#fff" />
+        <rect x="60" y="28" width="14" height="44" rx="7" fill="#fff" />
+      </symbol>
+    </defs>
+  </svg>
 
-<div class="bg-orbs" aria-hidden="true"><div class="orb orb-a"></div><div class="orb orb-b"></div><div class="orb orb-c"></div></div>
-
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-in">
-    <a href="#top" class="brand" aria-label="Base.vn Careers">
-      <svg class="logo-mark"><use href="#i-logo"/></svg>
-      <span class="mark">Base</span>
-    </a>
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
   </div>
-</nav>
-<div class="scroll-progress" id="scroll-progress"></div>
 
-<span id="top"></span>
-
-<!-- HERO (gộp: badge + heading + sub + CTA + note + stats, nền tối) -->
-<header class="hero band">
-  <div class="wrap reveal">
-    <div class="hero-inner">
-      <span class="pill"><span class="dot"></span>Pre-Sales B2B · SaaS</span>
-      <h1>Vị trí ít ai nói thẳng về, nhưng đáng dấn thân nhất trong <em>5 năm tới tại Việt Nam.</em></h1>
-      <p class="hero-sub">Solutions Engineer là người ngồi ở giao điểm của kỹ thuật, kinh doanh và tư vấn. Không phải Sales. Không phải Engineer. Là người giúp doanh nghiệp nhìn thấy bài toán của chính mình — rồi chứng minh được lời giải.</p>
-      <div class="hero-note">
-        <span class="flag">🇻🇳</span>
-        <b>Tại sao đặc biệt ở Việt Nam?</b>
-        <p>Thị trường SaaS B2B còn sơ khai — chưa có công ty nào xây vị trí Pre-Sales chuyên nghiệp như vậy. Và chưa có vị trí nào khác cho phép bạn làm việc trực tiếp từ <b style="color:#BFD3FF;white-space:nowrap">Chủ tịch HĐQT đến công nhân</b> trong cùng một deal — hiểu toàn bộ chiều sâu của một tổ chức.</p>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><b data-count="15" data-prefix="10–">10–15</b><span>doanh nghiệp thực / năm đầu</span></div>
-        <div class="stat"><b data-count="6" data-prefix="&lt;">&lt;6</b><span>tháng tự lead deal đầu tiên</span></div>
-        <div class="stat"><b>C → D</b><span>làm việc từ Chủ tịch đến Trưởng bộ phận</span></div>
-        <div class="stat"><b data-count="5" data-suffix="+">5+</b><span>hướng career path mở ra từ đây</span></div>
-      </div>
-      <div class="trust">Nền tảng quản trị đang vận hành tại 10.000+ doanh nghiệp Việt Nam</div>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-in">
+      <a href="#top" class="brand" aria-label="Base.vn Careers">
+        <svg class="logo-mark">
+          <use href="#i-logo" />
+        </svg>
+        <span class="mark">Base</span>
+      </a>
     </div>
-  </div>
-</header>
+  </nav>
+  <div class="scroll-progress" id="scroll-progress"></div>
 
-<!-- MAIN TAB BAR — điều hướng 6 mục -->
-<div class="maintabs-wrap" id="maintabs-anchor">
-  <div class="maintabs" role="tablist" aria-label="6 mục nội dung">
-    <button role="tab" data-tab="soe-la-gi"><span class="n">01</span>SoE là gì</button>
-    <button role="tab" data-tab="chan-dung"><span class="n">02</span>Chân dung</button>
-    <button role="tab" data-tab="hanh-trinh"><span class="n">03</span>Hành trình</button>
-    <button role="tab" data-tab="nang-luc"><span class="n">04</span>Năng lực</button>
-    <button role="tab" data-tab="phu-hop"><span class="n">05</span>Phù hợp?</button>
-    <button role="tab" data-tab="career-path"><span class="n">06</span>Career path</button>
-  </div>
-  <div class="tabs-progress" id="tabs-progress">Đã xem 1/6 mục</div>
-</div>
+  <span id="top"></span>
 
-<!-- 1. SOE LÀ GÌ -->
-<section id="soe-la-gi" class="band tabpanel-main">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="sec-icon"><svg><use href="#i-target"/></svg></div>
-      <span class="eyebrow center">01 — SoE là gì</span>
-      <h2 class="title">Một vòng đời công việc, xoay quanh mỗi buổi gặp khách hàng</h2>
-      <p>Không phải demo tính năng. SoE nhận biết bài toán thật, thấu hiểu nguyên nhân gốc, hóa giải lo ngại và lên giải pháp — rồi chứng minh bằng showcase.</p>
+  <!-- HERO (gộp: badge + heading + sub + CTA + note + stats, nền tối) -->
+  <header class="hero band">
+    <div class="wrap reveal">
+      <div class="hero-inner">
+        <span class="pill"><span class="dot"></span>Pre-Sales B2B · SaaS</span>
+        <h1>Vị trí ít ai nói thẳng về, nhưng đáng dấn thân nhất trong <em>5 năm tới tại Việt Nam.</em></h1>
+        <p class="hero-sub">Solutions Engineer là người ngồi ở giao điểm của kỹ thuật, kinh doanh và tư vấn. Không phải
+          Sales. Không phải Engineer. Là người giúp doanh nghiệp nhìn thấy bài toán của chính mình — rồi chứng minh được
+          lời giải.</p>
+        <div class="hero-note">
+          <span class="flag">🇻🇳</span>
+          <b>Tại sao đặc biệt ở Việt Nam?</b>
+          <p>Thị trường SaaS B2B còn sơ khai — chưa có công ty nào xây vị trí Pre-Sales chuyên nghiệp như vậy. Và chưa
+            có vị trí nào khác cho phép bạn làm việc trực tiếp từ <b style="color:#BFD3FF;white-space:nowrap">Chủ tịch
+              HĐQT đến công nhân</b> trong cùng một deal — hiểu toàn bộ chiều sâu của một tổ chức.</p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b data-count="15" data-prefix="10–">10–15</b><span>doanh nghiệp thực / năm đầu</span></div>
+          <div class="stat"><b data-count="6" data-prefix="&lt;">&lt;6</b><span>tháng tự lead deal đầu tiên</span></div>
+          <div class="stat"><b>C → D</b><span>làm việc từ Chủ tịch đến Trưởng bộ phận</span></div>
+          <div class="stat"><b data-count="5" data-suffix="+">5+</b><span>hướng career path mở ra từ đây</span></div>
+        </div>
+        <div class="trust">Nền tảng quản trị đang vận hành tại 10.000+ doanh nghiệp Việt Nam</div>
+      </div>
     </div>
+  </header>
 
-    <div class="stage-gate" data-stage="0"></div>
+  <!-- MAIN TAB BAR — điều hướng 6 mục -->
+  <div class="maintabs-wrap" id="maintabs-anchor">
+    <div class="maintabs" role="tablist" aria-label="6 mục nội dung">
+      <button role="tab" data-tab="soe-la-gi"><span class="n">01</span>SoE là gì</button>
+      <button role="tab" data-tab="chan-dung"><span class="n">02</span>Chân dung</button>
+      <button role="tab" data-tab="hanh-trinh"><span class="n">03</span>Hành trình</button>
+      <button role="tab" data-tab="nang-luc"><span class="n">04</span>Năng lực</button>
+      <button role="tab" data-tab="phu-hop"><span class="n">05</span>Phù hợp?</button>
+      <button role="tab" data-tab="career-path"><span class="n">06</span>Career path</button>
+    </div>
+    <div class="tabs-progress" id="tabs-progress">Đã xem 1/6 mục</div>
+  </div>
 
-    <div class="grid g-3 stagger" style="margin-bottom:16px">
-      <div class="card">
-        <span class="k">Trước buổi gặp</span>
-        <h3>Chuẩn bị để không bắt đầu từ số 0</h3>
+  <!-- 1. SOE LÀ GÌ -->
+  <section id="soe-la-gi" class="band tabpanel-main">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-icon"><svg>
+            <use href="#i-target" />
+          </svg></div>
+        <span class="eyebrow center">01 — SoE là gì</span>
+        <h2 class="title">Một vòng đời công việc, xoay quanh mỗi buổi gặp khách hàng</h2>
+        <p>Không phải demo tính năng. SoE nhận biết bài toán thật, thấu hiểu nguyên nhân gốc, hóa giải lo ngại và lên
+          giải pháp — rồi chứng minh bằng showcase.</p>
+      </div>
+
+      <div class="stage-gate" data-stage="0"></div>
+
+      <div class="grid g-3 stagger" style="margin-bottom:16px">
+        <div class="card">
+          <span class="k">Trước buổi gặp</span>
+          <h3>Chuẩn bị để không bắt đầu từ số 0</h3>
+          <ul>
+            <li>Research khách hàng: ngành, quy mô, phần mềm đang dùng, pain điển hình</li>
+            <li>Chuẩn bị 3 hypothesis về bài toán trước khi vào phòng</li>
+            <li>Cùng AM chốt mục tiêu buổi gặp — AM lead quan hệ, SoE lead giải pháp</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="k">Trong buổi gặp</span>
+          <h3>Nhận biết → Thấu hiểu → Hóa giải</h3>
+          <ul>
+            <li><b>Nhận biết:</b> đặt câu hỏi mở để lộ diện pain thật bên dưới lời nói</li>
+            <li><b>Thấu hiểu:</b> whiteboard bài toán ngay tại chỗ, tìm nguyên nhân gốc</li>
+            <li><b>Lên giải pháp:</b> demo bằng dữ liệu thật của khách, frame theo kết quả kinh doanh</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="k">Sau buổi gặp</span>
+          <h3>Đóng vòng lặp học</h3>
+          <ul>
+            <li>Debrief với AM: bài toán thật là gì, đánh giá fit / unfit, chiến lược deal</li>
+            <li>Customize giải pháp sâu hơn, chuẩn bị proposal hoặc showcase vòng sau</li>
+            <li>Track win rate cá nhân — thắng hay thua đều phải biết rõ lý do</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid g-2 stagger" style="margin-bottom:26px">
+        <div class="card">
+          <span class="k" style="color:var(--neg)">SoE ≠ Sales thuần</span>
+          <p>AM ở Base mạnh về sensing và account management — đọc người, xây trust, giữ quan hệ. SoE bù đúng chỗ AM
+            thiếu: <b>product depth và solution design</b>. Hai vai cộng lại mới tạo ra một deal hoàn chỉnh.</p>
+        </div>
+        <div class="card">
+          <span class="k" style="color:var(--neg)">SoE ≠ Technical Support</span>
+          <p>Support xử lý vấn đề <b>sau</b> khi mua. SoE tư vấn <b>trước</b> khi mua — thiết kế giải pháp, chứng minh
+            giải pháp, đảm bảo khách mua đúng thứ họ thực sự cần.</p>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <p class="row-label"
+          style="font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);text-align:center;margin-bottom:6px">
+          Giao điểm của 3 chiều</p>
+        <div class="venn">
+          <div class="node">
+            <div class="ic"><svg>
+                <use href="#i-wrench" />
+              </svg></div><b>Technical Depth</b><span>Hiểu sản phẩm đủ sâu để configure, bảo vệ và giải thích cho mọi
+              đối tượng</span>
+          </div>
+          <div class="node core">
+            <div class="ic"><svg>
+                <use href="#i-target" />
+              </svg></div><b>SoE</b><span>Trusted Advisor</span>
+          </div>
+          <div class="node">
+            <div class="ic"><svg>
+                <use href="#i-briefcase" />
+              </svg></div><b>Business Acumen</b><span>Đọc bài toán kinh doanh, nói chuyện được với C-level và
+              D-level</span>
+          </div>
+        </div>
+        <div class="note" style="margin-top:12px;max-width:var(--content-w);margin-inline:auto">
+          <b>Consultative Advisory</b> — Nhận biết pain thật vs pain bề mặt → thấu hiểu nguyên nhân gốc → hóa giải lo
+          ngại của khách → lên giải pháp có logic, chứng minh bằng demo thực tế.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. CHÂN DUNG -->
+  <section id="chan-dung" class="band tabpanel-main accent-violet">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-icon"><svg>
+            <use href="#i-spark" />
+          </svg></div>
+        <span class="eyebrow center">02 — Chân dung SoE giỏi</span>
+        <h2 class="title">4 archetype, và tỷ lệ lý tưởng thay đổi theo từng giai đoạn</h2>
+        <p>Bạn đang gần nhất với dạng nào? Technician là nền móng bắt buộc — Consultant được build lên trên.</p>
+      </div>
+
+      <div class="stage-gate" data-stage="1"></div>
+
+      <div class="grid g-2 stagger" style="margin-bottom:26px">
+        <details class="acc">
+          <summary><span class="ic"><svg>
+                <use href="#i-wrench" />
+              </svg></span><span class="st"><b>The Technician</b><span>"Tôi biết hết sản phẩm"</span></span><span
+              class="chev">▾</span></summary>
+          <div class="acc-body">
+            <div class="row"><b>Mạnh:</b> Thành thạo cấu hình, setup bất kỳ bài toán nào trong vài giờ. Khách tin ngay
+              về độ chính xác kỹ thuật.</div>
+            <div class="row"><b>Blind spot:</b> Demo tính năng thay vì bán giá trị. Khách ấn tượng nhưng không mua vì
+              không hiểu tại sao cần.</div>
+            <div class="row"><b>Phát triển:</b> Học cách bắt đầu bằng pain point, không bắt đầu bằng sản phẩm.</div>
+          </div>
+        </details>
+        <details class="acc">
+          <summary><span class="ic"><svg>
+                <use href="#i-spark" />
+              </svg></span><span class="st"><b>The Storyteller</b><span>Sensing tốt, mỏng về kỹ thuật</span></span><span
+              class="chev">▾</span></summary>
+          <div class="acc-body">
+            <div class="row"><b>Mạnh:</b> Nói chuyện cực hay, empathy cao. Win rate tốt ở deal đơn giản.</div>
+            <div class="row"><b>Blind spot:</b> Bị hỏi sâu kỹ thuật thì né. Churn cao — khách mua vào "feel", không phải
+              giải pháp thực sự phù hợp.</div>
+            <div class="row"><b>Lưu ý:</b> AM đã handle sensing rất tốt rồi. SoE không cần mạnh nhất ở chiều này.</div>
+          </div>
+        </details>
+        <details class="acc">
+          <summary><span class="ic"><svg>
+                <use href="#i-target" />
+              </svg></span><span class="st"><b>The Consultant</b><span>Archetype lý tưởng — đích đến sau 2–3
+                năm</span></span><span class="tag">Ideal</span></summary>
+          <div class="acc-body">
+            <div class="row"><b>Mạnh:</b> Ngồi với Chủ tịch và nói "quy trình của anh đang có bottleneck ở đây". Khách
+              mua vì tin người tư vấn, không phải vì thích demo.</div>
+            <div class="row"><b>Vì sao hiếm:</b> Cần đồng thời product depth + business acumen + interpersonal skills.
+              Hầu hết SoE chỉ mạnh 1–2 trong 3.</div>
+            <div class="row"><b>Con đường:</b> Bắt đầu từ Technician, build Consultant lên trên — không thể bỏ qua nền
+              tảng kỹ thuật.</div>
+          </div>
+        </details>
+        <details class="acc">
+          <summary><span class="ic"><svg>
+                <use href="#i-layers" />
+              </svg></span><span class="st"><b>The Hybrid Builder</b><span>SoE Lead — nhân bản impact qua
+                team</span></span><span class="chev">▾</span></summary>
+          <div class="acc-body">
+            <div class="row"><b>Mạnh:</b> Build playbook, demo library, coach junior. Impact qua người khác, không chỉ
+              qua deal của mình.</div>
+            <div class="row"><b>Blind spot:</b> Bị kéo vào việc nội bộ quá nhiều, mất đi sự sắc bén khi ra deal thực tế.
+            </div>
+            <div class="row"><b>Xuất hiện khi:</b> AM chủ động request, junior muốn shadow, bạn muốn team tốt hơn chứ
+              không chỉ win deal của mình.</div>
+          </div>
+        </details>
+      </div>
+
+      <details class="acc quiz-box reveal" style="margin-bottom:26px">
+        <summary>
+          <span class="ic"><svg>
+              <use href="#i-spark" />
+            </svg></span>
+          <span class="st"><b>Bạn giống archetype nào nhất?</b><span>Trắc nghiệm nhanh 4 câu — bấm để bắt
+              đầu</span></span>
+          <span class="chev">▾</span>
+        </summary>
+        <div class="quiz-body">
+          <span class="quiz-progress" id="quiz-progress">Đã trả lời 0/4</span>
+          <div class="quiz-q" data-q="0">
+            <p class="quiz-qtext">1. Gặp một bài toán mới của khách hàng, phản xạ đầu tiên của bạn là gì?</p>
+            <div class="quiz-opts">
+              <button class="quiz-option" type="button" data-arch="technician">Mở ngay hệ thống, thử cấu hình xem giải
+                pháp nào khả thi</button>
+              <button class="quiz-option" type="button" data-arch="storyteller">Kể một câu chuyện tương tự đã từng gặp
+                để tạo kết nối trước</button>
+              <button class="quiz-option" type="button" data-arch="consultant">Hỏi thêm để hiểu vì sao bài toán này quan
+                trọng với họ lúc này</button>
+              <button class="quiz-option" type="button" data-arch="hybrid">Nghĩ ngay ai trong team từng gặp case tương
+                tự để hỏi kinh nghiệm</button>
+            </div>
+          </div>
+          <div class="quiz-q" data-q="1">
+            <p class="quiz-qtext">2. Bạn tự tin nhất khi nào?</p>
+            <div class="quiz-opts">
+              <button class="quiz-option" type="button" data-arch="technician">Khi bị hỏi sâu chi tiết kỹ thuật của sản
+                phẩm</button>
+              <button class="quiz-option" type="button" data-arch="storyteller">Khi đứng trước đám đông kể chuyện, tạo
+                cảm xúc</button>
+              <button class="quiz-option" type="button" data-arch="consultant">Khi ngồi với người ra quyết định bàn
+                chiến lược</button>
+              <button class="quiz-option" type="button" data-arch="hybrid">Khi hướng dẫn, coach một người mới</button>
+            </div>
+          </div>
+          <div class="quiz-q" data-q="2">
+            <p class="quiz-qtext">3. Điều bạn ngại nhất trong công việc?</p>
+            <div class="quiz-opts">
+              <button class="quiz-option" type="button" data-arch="technician">Phải nói chuyện phiếm thay vì đi thẳng
+                vào vấn đề</button>
+              <button class="quiz-option" type="button" data-arch="storyteller">Bị hỏi dồn chi tiết kỹ thuật mình chưa
+                nắm chắc</button>
+              <button class="quiz-option" type="button" data-arch="consultant">Phải bán một thứ mà bạn biết khách không
+                thực sự cần</button>
+              <button class="quiz-option" type="button" data-arch="hybrid">Chỉ làm một mình, không ai để chia sẻ hay
+                nhân bản cách làm</button>
+            </div>
+          </div>
+          <div class="quiz-q" data-q="3">
+            <p class="quiz-qtext">4. Bạn muốn được nhớ đến vì điều gì?</p>
+            <div class="quiz-opts">
+              <button class="quiz-option" type="button" data-arch="technician">Người nắm chắc sản phẩm nhất
+                team</button>
+              <button class="quiz-option" type="button" data-arch="storyteller">Người truyền cảm hứng, ai cũng thích nói
+                chuyện cùng</button>
+              <button class="quiz-option" type="button" data-arch="consultant">Người khách hàng tin tưởng tuyệt đối như
+                cố vấn riêng</button>
+              <button class="quiz-option" type="button" data-arch="hybrid">Người xây được cả một đội ngũ giỏi</button>
+            </div>
+          </div>
+          <div class="quiz-result" id="quiz-result"></div>
+        </div>
+      </details>
+
+      <div class="mixwrap reveal" style="margin-bottom:26px">
+        <p style="font-size:.95rem;font-weight:600;margin-bottom:4px">Tỷ lệ lý tưởng — thay đổi theo giai đoạn</p>
+        <p style="font-size:.85rem;color:var(--ink-2);margin-bottom:16px">AM đã mạnh sensing và account. SoE bù đúng chỗ
+          AM thiếu.</p>
+        <div class="mixrow">
+          <div class="lbl">Onboarding (T1–T6)</div>
+          <div class="bar"><i style="flex:75;background:#1650EF">75</i><i style="flex:20;background:#15803D">20</i><i
+              style="flex:5;background:#B7791F">5</i></div>
+        </div>
+        <div class="mixrow">
+          <div class="lbl">Năm 1 – giữa năm 2</div>
+          <div class="bar"><i style="flex:60;background:#1650EF">60</i><i style="flex:30;background:#15803D">30</i><i
+              style="flex:10;background:#B7791F">10</i></div>
+        </div>
+        <div class="mixrow">
+          <div class="lbl">Năm 2 – năm 3</div>
+          <div class="bar"><i style="flex:40;background:#1650EF">40</i><i style="flex:50;background:#15803D">50</i><i
+              style="flex:10;background:#B7791F">10</i></div>
+        </div>
+        <div class="mixrow">
+          <div class="lbl">Năm 3+ (đích đến)</div>
+          <div class="bar"><i style="flex:25;background:#1650EF">25</i><i style="flex:55;background:#15803D">55</i><i
+              style="flex:20;background:#B7791F">20</i></div>
+        </div>
+        <div class="legend">
+          <span><i style="background:#1650EF"></i>Technician</span>
+          <span><i style="background:#15803D"></i>Consultant</span>
+          <span><i style="background:#B7791F"></i>Storyteller</span>
+        </div>
+      </div>
+
+      <p class="row-label"
+        style="font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);text-align:center;margin-bottom:14px">
+        SoE giỏi hành xử như thế nào</p>
+      <div class="grid g-4 stagger">
+        <div class="card"><span class="k">Vào phòng</span>
+          <p>Không mở bằng "để tôi giới thiệu về Base" mà bằng "tôi đọc qua quy trình của anh/chị, tôi tò mò về điểm
+            này…". Đến với một góc nhìn, không phải một script.</p>
+        </div>
+        <div class="card"><span class="k">Demo</span>
+          <p>Không show tất cả tính năng — chỉ đúng 3–4 điểm đau của khách đó. Dữ liệu trong demo là tên công ty, phòng
+            ban, quy trình của chính khách.</p>
+        </div>
+        <div class="card"><span class="k">Xử lý phản đối</span>
+          <p>Không phòng thủ. "Câu hỏi hay — anh/chị đang lo về điều gì chính xác?" Dùng 5Cs: Curiosity → Clarify →
+            Confirm → Communicate → Close.</p>
+        </div>
+        <div class="card"><span class="k">Khi nào walk away</span>
+          <p>Chủ động nói với AM "deal này không nên ép — khách cần X, chúng ta không có X". Trusted Advisor, không phải
+            người bán bằng mọi giá.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. HÀNH TRÌNH -->
+  <section id="hanh-trinh" class="band tabpanel-main accent-amber">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-icon"><svg>
+            <use href="#i-compass" />
+          </svg></div>
+        <span class="eyebrow center">03 — Hành trình phát triển</span>
+        <h2 class="title">Onboarding thực chiến, không mô phỏng — rồi lộ trình 1–3–5 năm</h2>
+        <p>Học bằng cách làm thật với khách thật. 4 giai đoạn theo năng lực, không tính theo lịch — mỗi lứa onboarding
+          bắt đầu một thời điểm khác nhau.</p>
+      </div>
+
+      <div class="stage-gate" data-stage="2"></div>
+
+      <div class="grid g-4 stagger" style="margin-bottom:30px">
+        <div class="card dark"><span class="k" style="color:#7FA6FF">Giai đoạn 1</span>
+          <h3>Onboarding Training</h3>
+          <ul>
+            <li>Làm chủ Base 1.0: Wework, Service, Table, AI, Info+ — qua case thật</li>
+            <li>Nắm trọn quy trình triển khai đầu-cuối</li>
+            <li>Sẵn sàng nhận khách hàng đầu tiên</li>
+          </ul>
+        </div>
+        <div class="card dark"><span class="k" style="color:#7FA6FF">Giai đoạn 2</span>
+          <h3>SoE Support</h3>
+          <ul>
+            <li>Đạt ≥3/4 điểm Mockup Test: hiểu đúng bài toán, bóc tách nghiệp vụ, tư duy giải pháp</li>
+            <li>Vào deal PS/POD thật ở vai trò hỗ trợ, phân tích theo khung L.E.N.S</li>
+            <li>Xử lý phản hồi khách thật hằng tuần — hết mô phỏng</li>
+          </ul>
+        </div>
+        <div class="card dark"><span class="k" style="color:#7FA6FF">Giai đoạn 3</span>
+          <h3>SoE Associate</h3>
+          <ul>
+            <li>Mở rộng nghiệp vụ: HRM+ (Payroll, Timeoff, Schedule), HCNS, R&amp;D</li>
+            <li>Nâng chuẩn Mockup Test: biết dẫn dắt và truyền tải giá trị, không chỉ hiểu bài toán</li>
+            <li>Tự hoàn thành tài liệu nghiệp vụ từ trải nghiệm thật của mình</li>
+          </ul>
+        </div>
+        <div class="card dark"><span class="k" style="color:#7FA6FF">Giai đoạn 4</span>
+          <h3>SoE Junior</h3>
+          <ul>
+            <li>Tự đứng tên deal đầu tiên: PS Lite, POD Express, Sales POD</li>
+            <li>Chuyển từ có người hỗ trợ sang tự vận hành</li>
+            <li>Ngừng học việc — bắt đầu tạo ra doanh thu thật</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl reveal" style="margin-bottom:30px">
+        <div class="tl-item">
+          <div class="tl-card">
+            <div class="h"><span class="badge">Năm 1</span><b>Build foundation</b></div>
+            <div class="metrics">Win rate ~25% · ARPD 100–150tr / deal</div>
+            <p>Pattern recognition qua volume. ≥ 3 case study thực chiến kể được rõ ràng cho interviewer. AM bắt đầu hỏi
+              ý kiến về solution, không chỉ "demo khi nào".</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-card">
+            <div class="h"><span class="badge">Năm 2–3</span><b>Specialize &amp; Scale</b></div>
+            <div class="metrics">Win rate 25–33% · ARPD 150–300tr / deal</div>
+            <p>Giai đoạn phân hóa quan trọng nhất. Chọn hướng <b>Deep Vertical</b> (master 1–2 ngành) hoặc <b>Solution
+                Architect</b> (master multi-module, design lộ trình CĐS tổng thể). Cảnh báo plateau nếu không
+              differentiate.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-card">
+            <div class="h"><span class="badge">Năm 3+</span><b>Leadership fork</b></div>
+            <div class="metrics">Win rate &gt;33% · ARPD &gt;300tr / deal</div>
+            <p>Rẽ nhánh: SoE Lead / Principal · SE Manager · Product / Strategy · Entrepreneur.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <p style="font-size:.95rem;font-weight:600;margin-bottom:4px">Kỹ năng cần đạt theo từng giai đoạn</p>
+        <p style="font-size:.85rem;color:var(--ink-2);margin-bottom:16px">Mỗi mốc: skills chia theo Technician /
+          Consultant / Storyteller, và cách nâng lên.</p>
+        <div class="tabs" role="tablist" aria-label="Giai đoạn phát triển">
+          <button role="tab" aria-selected="true" data-stage="0">Onboarding (T1–T6)</button>
+          <button role="tab" aria-selected="false" data-stage="1">Năm 1–2</button>
+          <button role="tab" aria-selected="false" data-stage="2">Năm 2–3</button>
+          <button role="tab" aria-selected="false" data-stage="3">Năm 3+</button>
+        </div>
+        <div id="stage-panels"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. NĂNG LỰC -->
+  <section id="nang-luc" class="band tabpanel-main">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-icon"><svg>
+            <use href="#i-chart" />
+          </svg></div>
+        <span class="eyebrow center">04 — Năng lực cần build</span>
+        <h2 class="title">T-Shaped Framework: rộng ở 6 core, sâu ở 1 specialist</h2>
+        <p>Bấm từng năng lực để xem các dimension, ví dụ thực tế và 3 cấp độ Foundational → Intermediate → Advanced.</p>
+      </div>
+
+      <div class="stage-gate" data-stage="3"></div>
+
+      <div class="tshape reveal">
+        <p class="row-label">6 Core Competencies</p>
+        <div class="corebar" id="core-chips"></div>
+        <div class="comp-detail" id="core-detail"></div>
+
+        <p class="row-label" style="margin-top:34px">6 Specialist Competencies — chọn chuyên sâu ≥ 1</p>
+        <div class="spectabs" id="spec-tabs"></div>
+        <div class="spec-panel" id="spec-panel"></div>
+
+        <p class="row-label" style="margin-top:34px">3 Leadership Dimensions — nền tảng</p>
+        <div class="leadtabs" id="lead-tabs"></div>
+        <div class="lead-panel" id="lead-panel"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. TÔI CÓ PHÙ HỢP -->
+  <section id="phu-hop" class="band tabpanel-main accent-rose">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-icon"><svg>
+            <use href="#i-check" />
+          </svg></div>
+        <span class="eyebrow center">05 — Tôi có phù hợp</span>
+        <h2 class="title">Thông tin minh bạch để cả hai bên không mất thời gian của nhau</h2>
+        <p>Lương thực nhận theo giai đoạn, quy trình 3 vòng, JD đầy đủ, và một bộ tự đánh giá.</p>
+      </div>
+
+      <div class="stage-gate" data-stage="4"></div>
+
+      <p style="font-size:.85rem;color:var(--ink-2);margin-bottom:10px"><b style="color:var(--ink)">Công thức:</b> Thực
+        nhận = Lương cứng (8.000.000) + Hoa hồng (theo doanh thu deal SoE Support/Associate/Junior, tăng dần theo giai
+        đoạn) + Phụ cấp xăng xe (500.000).</p>
+      <div class="tablewrap reveal" style="margin-bottom:16px">
+        <table class="salary">
+          <thead>
+            <tr>
+              <th>Thời gian</th>
+              <th>Lương cứng</th>
+              <th>Phụ cấp</th>
+              <th>Hoa hồng (ước tính)</th>
+              <th>Thực nhận TB</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tháng 1–2</td>
+              <td>8.000.000</td>
+              <td>500.000</td>
+              <td>Chưa có (đang học)</td>
+              <td class="hl">~8.000.000</td>
+            </tr>
+            <tr>
+              <td>Tháng 3–4</td>
+              <td>8.000.000</td>
+              <td>500.000</td>
+              <td>SoE Support: 0 – 1.500.000</td>
+              <td class="hl">8–10 triệu</td>
+            </tr>
+            <tr>
+              <td>Tháng 5–6</td>
+              <td>8.000.000</td>
+              <td>500.000</td>
+              <td>SoE Support → SoE Associate: 1,5–3,5tr</td>
+              <td class="hl">10–12 triệu</td>
+            </tr>
+            <tr>
+              <td>Tháng 7–12</td>
+              <td>8.000.000</td>
+              <td>500.000</td>
+              <td>SoE Associate → SoE Junior: 3,5–9,5tr</td>
+              <td class="hl">12–18 triệu</td>
+            </tr>
+            <tr>
+              <td>Sau năm 1</td>
+              <td>8.000.000+</td>
+              <td>500.000</td>
+              <td>Performance-based</td>
+              <td class="hl" style="color:var(--pos)">Từ 18 triệu+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="scrollhint">← vuốt ngang để xem đủ bảng →</p>
+      <div class="grid g-2 stagger" style="margin-bottom:30px">
+        <div class="card"><span class="k" style="color:var(--neg)">Không có</span>
+          <p>Phụ cấp ăn trưa, xe đưa đón, và một cái tên công ty lớn để flex trên LinkedIn trong 2 năm đầu.</p>
+        </div>
+        <div class="card"><span class="k" style="color:var(--pos)">Có</span>
+          <p>Làm thật với khách thật — từ Chủ tịch đến công nhân, chịu trách nhiệm thật, thấy impact thật — nhanh hơn
+            hầu hết nơi khác.</p>
+        </div>
+      </div>
+
+      <p class="row-label"
+        style="font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);text-align:center;margin-bottom:14px">
+        Quy trình tuyển chọn — 3 vòng trong 2 tuần</p>
+      <div class="grid g-3 stagger" style="margin-bottom:30px">
+        <div class="card"><span class="k">Vòng 1 · Online</span>
+          <h3>CV + 1 câu hỏi</h3>
+          <p>Gửi CV kèm câu trả lời ≤ 200 chữ: <i>"Kể một lần bạn giúp ai đó giải quyết vấn đề phức tạp. Bạn tiếp cận
+              như thế nào?"</i></p>
+        </div>
+        <div class="card"><span class="k">Vòng 2 · Offline</span>
+          <h3>Phỏng vấn với SoE Leader</h3>
+          <p>Thảo luận cách tư duy khi tiếp cận bài toán, định hướng phát triển. Đánh giá potential và mindset — không
+            phải kinh nghiệm.</p>
+        </div>
+        <div class="card"><span class="k">Vòng 3 · Offline</span>
+          <h3>Conversation (45 phút)</h3>
+          <p>Nói chuyện thật với SoE Manager về career và những gì bạn sẵn sàng đánh đổi. Vòng này để <b>cả hai bên</b>
+            quyết định.</p>
+        </div>
+      </div>
+
+      <div class="jd reveal" style="margin-bottom:30px">
+        <div class="jd-head">
+          <div><b>Solutions Engineer (Pre-Sales B2B)</b><span>Base.vn · TP. Hồ Chí Minh · Full-time · T2–T6 08:30–18:00
+              · T7 08:30–12:00</span></div>
+          <div class="pay"><b>8M + Hoa hồng</b><span>+ Phụ cấp xăng xe 500K</span></div>
+        </div>
+        <div class="jd-k">Vai trò thực sự</div>
+        <p>Khách hàng của Base không mua phần mềm — họ mua lời giải cho bài toán vận hành. SoE là người đứng ở điểm đó:
+          nhận biết bài toán thật, thấu hiểu nguyên nhân gốc, hóa giải lo ngại và lên giải pháp phù hợp — rồi chứng minh
+          bằng showcase trực tiếp với C-level và D-level. Là tư vấn có ownership về kết quả, không phải demo tính năng.
+        </p>
+        <div class="jd-k">Bạn phù hợp nếu</div>
         <ul>
-          <li>Research khách hàng: ngành, quy mô, phần mềm đang dùng, pain điển hình</li>
-          <li>Chuẩn bị 3 hypothesis về bài toán trước khi vào phòng</li>
-          <li>Cùng AM chốt mục tiêu buổi gặp — AM lead quan hệ, SoE lead giải pháp</li>
+          <li class="pos">Có 0–2 năm kinh nghiệm, đang cảm thấy bí — làm đi làm lại việc giống nhau, không thấy career
+            path rõ</li>
+          <li class="pos">Muốn làm thật với người thật — không phải project mô phỏng hay rotation 6 tháng/phòng</li>
+          <li class="pos">Tò mò về cách doanh nghiệp vận hành và muốn là người giúp họ giải quyết bài toán đó</li>
+          <li class="pos">Sẵn sàng học bằng cách làm — chịu được cảm giác không biết câu trả lời ngay lập tức</li>
+          <li class="pos">Background: Sales B2B bất kỳ ngành, Implementation/BA phần mềm, hoặc chưa nhiều kinh nghiệm
+            nhưng có track record thực chiến</li>
+        </ul>
+        <div class="jd-k">Bạn không phù hợp nếu</div>
+        <ul>
+          <li class="neg">Đang cân nhắc giữa Base và MT program MNC, và lý do chính là tên công ty trên CV → chọn MT
+            program</li>
+          <li class="neg">Muốn structure rõ ràng từng ngày và không thích ambiguity, đặc biệt 6 tháng đầu</li>
+          <li class="neg">Lương cứng 8M trong giai đoạn đầu là dealbreaker với bạn ở giai đoạn này</li>
+        </ul>
+        <div class="jd-k">Tố chất thực sự</div>
+        <ul>
+          <li>Người có câu hỏi, không chỉ câu trả lời trôi chảy</li>
+          <li>Đã từng tự làm gì đó và chịu trách nhiệm — không cần hoàn hảo, cần là thật và là của mình</li>
+          <li>Revenue-oriented nhưng không bán bằng mọi giá — biết khi nào deal không fit và dám nói thẳng</li>
+          <li>Biết mình không biết gì — không giả vờ</li>
         </ul>
       </div>
-      <div class="card">
-        <span class="k">Trong buổi gặp</span>
-        <h3>Nhận biết → Thấu hiểu → Hóa giải</h3>
-        <ul>
-          <li><b>Nhận biết:</b> đặt câu hỏi mở để lộ diện pain thật bên dưới lời nói</li>
-          <li><b>Thấu hiểu:</b> whiteboard bài toán ngay tại chỗ, tìm nguyên nhân gốc</li>
-          <li><b>Lên giải pháp:</b> demo bằng dữ liệu thật của khách, frame theo kết quả kinh doanh</li>
-        </ul>
-      </div>
-      <div class="card">
-        <span class="k">Sau buổi gặp</span>
-        <h3>Đóng vòng lặp học</h3>
-        <ul>
-          <li>Debrief với AM: bài toán thật là gì, đánh giá fit / unfit, chiến lược deal</li>
-          <li>Customize giải pháp sâu hơn, chuẩn bị proposal hoặc showcase vòng sau</li>
-          <li>Track win rate cá nhân — thắng hay thua đều phải biết rõ lý do</li>
-        </ul>
-      </div>
-    </div>
 
-    <div class="grid g-2 stagger" style="margin-bottom:26px">
-      <div class="card">
-        <span class="k" style="color:var(--neg)">SoE ≠ Sales thuần</span>
-        <p>AM ở Base mạnh về sensing và account management — đọc người, xây trust, giữ quan hệ. SoE bù đúng chỗ AM thiếu: <b>product depth và solution design</b>. Hai vai cộng lại mới tạo ra một deal hoàn chỉnh.</p>
-      </div>
-      <div class="card">
-        <span class="k" style="color:var(--neg)">SoE ≠ Technical Support</span>
-        <p>Support xử lý vấn đề <b>sau</b> khi mua. SoE tư vấn <b>trước</b> khi mua — thiết kế giải pháp, chứng minh giải pháp, đảm bảo khách mua đúng thứ họ thực sự cần.</p>
-      </div>
-    </div>
+      <p class="row-label"
+        style="font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);text-align:center;margin-bottom:14px">
+        Tự check trước khi apply</p>
+      <div class="check-progress" id="check-progress">Đã chọn 0/8</div>
+      <div class="reveal" id="checklist"></div>
+      <div class="result" id="check-result"></div>
 
-    <div class="reveal">
-      <p class="row-label" style="font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);text-align:center;margin-bottom:6px">Giao điểm của 3 chiều</p>
-      <div class="venn">
-        <div class="node"><div class="ic"><svg><use href="#i-wrench"/></svg></div><b>Technical Depth</b><span>Hiểu sản phẩm đủ sâu để configure, bảo vệ và giải thích cho mọi đối tượng</span></div>
-        <div class="node core"><div class="ic"><svg><use href="#i-target"/></svg></div><b>SoE</b><span>Trusted Advisor</span></div>
-        <div class="node"><div class="ic"><svg><use href="#i-briefcase"/></svg></div><b>Business Acumen</b><span>Đọc bài toán kinh doanh, nói chuyện được với C-level và D-level</span></div>
-      </div>
-      <div class="note" style="margin-top:12px;max-width:var(--content-w);margin-inline:auto">
-        <b>Consultative Advisory</b> — Nhận biết pain thật vs pain bề mặt → thấu hiểu nguyên nhân gốc → hóa giải lo ngại của khách → lên giải pháp có logic, chứng minh bằng demo thực tế.
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 2. CHÂN DUNG -->
-<section id="chan-dung" class="band tabpanel-main accent-violet">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="sec-icon"><svg><use href="#i-spark"/></svg></div>
-      <span class="eyebrow center">02 — Chân dung SoE giỏi</span>
-      <h2 class="title">4 archetype, và tỷ lệ lý tưởng thay đổi theo từng giai đoạn</h2>
-      <p>Bạn đang gần nhất với dạng nào? Technician là nền móng bắt buộc — Consultant được build lên trên.</p>
-    </div>
-
-    <div class="stage-gate" data-stage="1"></div>
-
-    <div class="grid g-2 stagger" style="margin-bottom:26px">
-      <details class="acc">
-        <summary><span class="ic"><svg><use href="#i-wrench"/></svg></span><span class="st"><b>The Technician</b><span>"Tôi biết hết sản phẩm"</span></span><span class="chev">▾</span></summary>
-        <div class="acc-body">
-          <div class="row"><b>Mạnh:</b> Thành thạo cấu hình, setup bất kỳ bài toán nào trong vài giờ. Khách tin ngay về độ chính xác kỹ thuật.</div>
-          <div class="row"><b>Blind spot:</b> Demo tính năng thay vì bán giá trị. Khách ấn tượng nhưng không mua vì không hiểu tại sao cần.</div>
-          <div class="row"><b>Phát triển:</b> Học cách bắt đầu bằng pain point, không bắt đầu bằng sản phẩm.</div>
+      <div class="finalcta-inline reveal">
+        <span class="eyebrow center">Câu hỏi cuối trước khi apply</span>
+        <h2>"Sau 2 năm ở đây, tôi muốn là người biết làm gì?"</h2>
+        <p class="q">Nếu câu trả lời là: có thể ngồi với CEO của bất kỳ doanh nghiệp nào và có ích ngay lập tức — thì
+          apply.</p>
+        <div class="actions">
+          <a class="btn btn-dark" href="https://careers.base.vn" target="_blank" rel="noopener">Apply tại
+            careers.base.vn →</a>
+          <a class="btn btn-outline-dark" href="#top">Đọc lại từ đầu</a>
         </div>
-      </details>
-      <details class="acc">
-        <summary><span class="ic"><svg><use href="#i-spark"/></svg></span><span class="st"><b>The Storyteller</b><span>Sensing tốt, mỏng về kỹ thuật</span></span><span class="chev">▾</span></summary>
-        <div class="acc-body">
-          <div class="row"><b>Mạnh:</b> Nói chuyện cực hay, empathy cao. Win rate tốt ở deal đơn giản.</div>
-          <div class="row"><b>Blind spot:</b> Bị hỏi sâu kỹ thuật thì né. Churn cao — khách mua vào "feel", không phải giải pháp thực sự phù hợp.</div>
-          <div class="row"><b>Lưu ý:</b> AM đã handle sensing rất tốt rồi. SoE không cần mạnh nhất ở chiều này.</div>
-        </div>
-      </details>
-      <details class="acc">
-        <summary><span class="ic"><svg><use href="#i-target"/></svg></span><span class="st"><b>The Consultant</b><span>Archetype lý tưởng — đích đến sau 2–3 năm</span></span><span class="tag">Ideal</span></summary>
-        <div class="acc-body">
-          <div class="row"><b>Mạnh:</b> Ngồi với Chủ tịch và nói "quy trình của anh đang có bottleneck ở đây". Khách mua vì tin người tư vấn, không phải vì thích demo.</div>
-          <div class="row"><b>Vì sao hiếm:</b> Cần đồng thời product depth + business acumen + interpersonal skills. Hầu hết SoE chỉ mạnh 1–2 trong 3.</div>
-          <div class="row"><b>Con đường:</b> Bắt đầu từ Technician, build Consultant lên trên — không thể bỏ qua nền tảng kỹ thuật.</div>
-        </div>
-      </details>
-      <details class="acc">
-        <summary><span class="ic"><svg><use href="#i-layers"/></svg></span><span class="st"><b>The Hybrid Builder</b><span>SoE Lead — nhân bản impact qua team</span></span><span class="chev">▾</span></summary>
-        <div class="acc-body">
-          <div class="row"><b>Mạnh:</b> Build playbook, demo library, coach junior. Impact qua người khác, không chỉ qua deal của mình.</div>
-          <div class="row"><b>Blind spot:</b> Bị kéo vào việc nội bộ quá nhiều, mất đi sự sắc bén khi ra deal thực tế.</div>
-          <div class="row"><b>Xuất hiện khi:</b> AM chủ động request, junior muốn shadow, bạn muốn team tốt hơn chứ không chỉ win deal của mình.</div>
-        </div>
-      </details>
-    </div>
-
-    <details class="acc quiz-box reveal" style="margin-bottom:26px">
-      <summary>
-        <span class="ic"><svg><use href="#i-spark"/></svg></span>
-        <span class="st"><b>Bạn giống archetype nào nhất?</b><span>Trắc nghiệm nhanh 4 câu — bấm để bắt đầu</span></span>
-        <span class="chev">▾</span>
-      </summary>
-      <div class="quiz-body">
-      <span class="quiz-progress" id="quiz-progress">Đã trả lời 0/4</span>
-      <div class="quiz-q" data-q="0">
-        <p class="quiz-qtext">1. Gặp một bài toán mới của khách hàng, phản xạ đầu tiên của bạn là gì?</p>
-        <div class="quiz-opts">
-          <button class="quiz-option" type="button" data-arch="technician">Mở ngay hệ thống, thử cấu hình xem giải pháp nào khả thi</button>
-          <button class="quiz-option" type="button" data-arch="storyteller">Kể một câu chuyện tương tự đã từng gặp để tạo kết nối trước</button>
-          <button class="quiz-option" type="button" data-arch="consultant">Hỏi thêm để hiểu vì sao bài toán này quan trọng với họ lúc này</button>
-          <button class="quiz-option" type="button" data-arch="hybrid">Nghĩ ngay ai trong team từng gặp case tương tự để hỏi kinh nghiệm</button>
-        </div>
-      </div>
-      <div class="quiz-q" data-q="1">
-        <p class="quiz-qtext">2. Bạn tự tin nhất khi nào?</p>
-        <div class="quiz-opts">
-          <button class="quiz-option" type="button" data-arch="technician">Khi bị hỏi sâu chi tiết kỹ thuật của sản phẩm</button>
-          <button class="quiz-option" type="button" data-arch="storyteller">Khi đứng trước đám đông kể chuyện, tạo cảm xúc</button>
-          <button class="quiz-option" type="button" data-arch="consultant">Khi ngồi với người ra quyết định bàn chiến lược</button>
-          <button class="quiz-option" type="button" data-arch="hybrid">Khi hướng dẫn, coach một người mới</button>
-        </div>
-      </div>
-      <div class="quiz-q" data-q="2">
-        <p class="quiz-qtext">3. Điều bạn ngại nhất trong công việc?</p>
-        <div class="quiz-opts">
-          <button class="quiz-option" type="button" data-arch="technician">Phải nói chuyện phiếm thay vì đi thẳng vào vấn đề</button>
-          <button class="quiz-option" type="button" data-arch="storyteller">Bị hỏi dồn chi tiết kỹ thuật mình chưa nắm chắc</button>
-          <button class="quiz-option" type="button" data-arch="consultant">Phải bán một thứ mà bạn biết khách không thực sự cần</button>
-          <button class="quiz-option" type="button" data-arch="hybrid">Chỉ làm một mình, không ai để chia sẻ hay nhân bản cách làm</button>
-        </div>
-      </div>
-      <div class="quiz-q" data-q="3">
-        <p class="quiz-qtext">4. Bạn muốn được nhớ đến vì điều gì?</p>
-        <div class="quiz-opts">
-          <button class="quiz-option" type="button" data-arch="technician">Người nắm chắc sản phẩm nhất team</button>
-          <button class="quiz-option" type="button" data-arch="storyteller">Người truyền cảm hứng, ai cũng thích nói chuyện cùng</button>
-          <button class="quiz-option" type="button" data-arch="consultant">Người khách hàng tin tưởng tuyệt đối như cố vấn riêng</button>
-          <button class="quiz-option" type="button" data-arch="hybrid">Người xây được cả một đội ngũ giỏi</button>
-        </div>
-      </div>
-      <div class="quiz-result" id="quiz-result"></div>
-      </div>
-    </details>
-
-    <div class="mixwrap reveal" style="margin-bottom:26px">
-      <p style="font-size:.95rem;font-weight:600;margin-bottom:4px">Tỷ lệ lý tưởng — thay đổi theo giai đoạn</p>
-      <p style="font-size:.85rem;color:var(--ink-2);margin-bottom:16px">AM đã mạnh sensing và account. SoE bù đúng chỗ AM thiếu.</p>
-      <div class="mixrow"><div class="lbl">Onboarding (T1–T6)</div><div class="bar"><i style="flex:75;background:#1650EF">75</i><i style="flex:20;background:#15803D">20</i><i style="flex:5;background:#B7791F">5</i></div></div>
-      <div class="mixrow"><div class="lbl">Năm 1 – giữa năm 2</div><div class="bar"><i style="flex:60;background:#1650EF">60</i><i style="flex:30;background:#15803D">30</i><i style="flex:10;background:#B7791F">10</i></div></div>
-      <div class="mixrow"><div class="lbl">Năm 2 – năm 3</div><div class="bar"><i style="flex:40;background:#1650EF">40</i><i style="flex:50;background:#15803D">50</i><i style="flex:10;background:#B7791F">10</i></div></div>
-      <div class="mixrow"><div class="lbl">Năm 3+ (đích đến)</div><div class="bar"><i style="flex:25;background:#1650EF">25</i><i style="flex:55;background:#15803D">55</i><i style="flex:20;background:#B7791F">20</i></div></div>
-      <div class="legend">
-        <span><i style="background:#1650EF"></i>Technician</span>
-        <span><i style="background:#15803D"></i>Consultant</span>
-        <span><i style="background:#B7791F"></i>Storyteller</span>
+        <div class="fine">Tuyển đủ sẽ đóng — không có deadline cố định.</div>
       </div>
     </div>
+  </section>
 
-    <p class="row-label" style="font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);text-align:center;margin-bottom:14px">SoE giỏi hành xử như thế nào</p>
-    <div class="grid g-4 stagger">
-      <div class="card"><span class="k">Vào phòng</span><p>Không mở bằng "để tôi giới thiệu về Base" mà bằng "tôi đọc qua quy trình của anh/chị, tôi tò mò về điểm này…". Đến với một góc nhìn, không phải một script.</p></div>
-      <div class="card"><span class="k">Demo</span><p>Không show tất cả tính năng — chỉ đúng 3–4 điểm đau của khách đó. Dữ liệu trong demo là tên công ty, phòng ban, quy trình của chính khách.</p></div>
-      <div class="card"><span class="k">Xử lý phản đối</span><p>Không phòng thủ. "Câu hỏi hay — anh/chị đang lo về điều gì chính xác?" Dùng 5Cs: Curiosity → Clarify → Confirm → Communicate → Close.</p></div>
-      <div class="card"><span class="k">Khi nào walk away</span><p>Chủ động nói với AM "deal này không nên ép — khách cần X, chúng ta không có X". Trusted Advisor, không phải người bán bằng mọi giá.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- 3. HÀNH TRÌNH -->
-<section id="hanh-trinh" class="band tabpanel-main accent-amber">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="sec-icon"><svg><use href="#i-compass"/></svg></div>
-      <span class="eyebrow center">03 — Hành trình phát triển</span>
-      <h2 class="title">Onboarding thực chiến, không mô phỏng — rồi lộ trình 1–3–5 năm</h2>
-      <p>Học bằng cách làm thật với khách thật. 4 giai đoạn theo năng lực, không tính theo lịch — mỗi lứa onboarding bắt đầu một thời điểm khác nhau.</p>
-    </div>
-
-    <div class="stage-gate" data-stage="2"></div>
-
-    <div class="grid g-4 stagger" style="margin-bottom:30px">
-      <div class="card dark"><span class="k" style="color:#7FA6FF">Giai đoạn 1</span><h3>Onboarding Training</h3><ul><li>Làm chủ Base 1.0: Wework, Service, Table, AI, Info+ — qua case thật</li><li>Nắm trọn quy trình triển khai đầu-cuối</li><li>Sẵn sàng nhận khách hàng đầu tiên</li></ul></div>
-      <div class="card dark"><span class="k" style="color:#7FA6FF">Giai đoạn 2</span><h3>SoE Support</h3><ul><li>Đạt ≥3/4 điểm Mockup Test: hiểu đúng bài toán, bóc tách nghiệp vụ, tư duy giải pháp</li><li>Vào deal PS/POD thật ở vai trò hỗ trợ, phân tích theo khung L.E.N.S</li><li>Xử lý phản hồi khách thật hằng tuần — hết mô phỏng</li></ul></div>
-      <div class="card dark"><span class="k" style="color:#7FA6FF">Giai đoạn 3</span><h3>SoE Associate</h3><ul><li>Mở rộng nghiệp vụ: HRM+ (Payroll, Timeoff, Schedule), HCNS, R&amp;D</li><li>Nâng chuẩn Mockup Test: biết dẫn dắt và truyền tải giá trị, không chỉ hiểu bài toán</li><li>Tự hoàn thành tài liệu nghiệp vụ từ trải nghiệm thật của mình</li></ul></div>
-      <div class="card dark"><span class="k" style="color:#7FA6FF">Giai đoạn 4</span><h3>SoE Junior</h3><ul><li>Tự đứng tên deal đầu tiên: PS Lite, POD Express, Sales POD</li><li>Chuyển từ có người hỗ trợ sang tự vận hành</li><li>Ngừng học việc — bắt đầu tạo ra doanh thu thật</li></ul></div>
-    </div>
-
-    <div class="tl reveal" style="margin-bottom:30px">
-      <div class="tl-item"><div class="tl-card"><div class="h"><span class="badge">Năm 1</span><b>Build foundation</b></div><div class="metrics">Win rate ~25% · ARPD 100–150tr / deal</div><p>Pattern recognition qua volume. ≥ 3 case study thực chiến kể được rõ ràng cho interviewer. AM bắt đầu hỏi ý kiến về solution, không chỉ "demo khi nào".</p></div></div>
-      <div class="tl-item"><div class="tl-card"><div class="h"><span class="badge">Năm 2–3</span><b>Specialize &amp; Scale</b></div><div class="metrics">Win rate 25–33% · ARPD 150–300tr / deal</div><p>Giai đoạn phân hóa quan trọng nhất. Chọn hướng <b>Deep Vertical</b> (master 1–2 ngành) hoặc <b>Solution Architect</b> (master multi-module, design lộ trình CĐS tổng thể). Cảnh báo plateau nếu không differentiate.</p></div></div>
-      <div class="tl-item"><div class="tl-card"><div class="h"><span class="badge">Năm 3+</span><b>Leadership fork</b></div><div class="metrics">Win rate &gt;33% · ARPD &gt;300tr / deal</div><p>Rẽ nhánh: SoE Lead / Principal · SE Manager · Product / Strategy · Entrepreneur.</p></div></div>
-    </div>
-
-    <div class="reveal">
-      <p style="font-size:.95rem;font-weight:600;margin-bottom:4px">Kỹ năng cần đạt theo từng giai đoạn</p>
-      <p style="font-size:.85rem;color:var(--ink-2);margin-bottom:16px">Mỗi mốc: skills chia theo Technician / Consultant / Storyteller, và cách nâng lên.</p>
-      <div class="tabs" role="tablist" aria-label="Giai đoạn phát triển">
-        <button role="tab" aria-selected="true" data-stage="0">Onboarding (T1–T6)</button>
-        <button role="tab" aria-selected="false" data-stage="1">Năm 1–2</button>
-        <button role="tab" aria-selected="false" data-stage="2">Năm 2–3</button>
-        <button role="tab" aria-selected="false" data-stage="3">Năm 3+</button>
+  <!-- 6. CAREER PATH -->
+  <section id="career-path" class="band tabpanel-main accent-green">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-icon"><svg>
+            <use href="#i-layers" />
+          </svg></div>
+        <span class="eyebrow center">06 — Career path</span>
+        <h2 class="title">SoE là một trong những vị trí có ROI career cao nhất — nếu làm đúng</h2>
+        <p>4 hướng đi từ đây, và framework 3 câu hỏi để đánh giá bất kỳ career move nào.</p>
       </div>
-      <div id="stage-panels"></div>
-    </div>
-  </div>
-</section>
 
-<!-- 4. NĂNG LỰC -->
-<section id="nang-luc" class="band tabpanel-main">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="sec-icon"><svg><use href="#i-chart"/></svg></div>
-      <span class="eyebrow center">04 — Năng lực cần build</span>
-      <h2 class="title">T-Shaped Framework: rộng ở 6 core, sâu ở 1 specialist</h2>
-      <p>Bấm từng năng lực để xem các dimension, ví dụ thực tế và 3 cấp độ Foundational → Intermediate → Advanced.</p>
-    </div>
+      <div class="stage-gate" data-stage="5"></div>
 
-    <div class="stage-gate" data-stage="3"></div>
-
-    <div class="tshape reveal">
-      <p class="row-label">6 Core Competencies</p>
-      <div class="corebar" id="core-chips"></div>
-      <div class="comp-detail" id="core-detail"></div>
-
-      <p class="row-label" style="margin-top:34px">6 Specialist Competencies — chọn chuyên sâu ≥ 1</p>
-      <div class="spectabs" id="spec-tabs"></div>
-      <div class="spec-panel" id="spec-panel"></div>
-
-      <p class="row-label" style="margin-top:34px">3 Leadership Dimensions — nền tảng</p>
-      <div class="leadtabs" id="lead-tabs"></div>
-      <div class="lead-panel" id="lead-panel"></div>
-    </div>
-  </div>
-</section>
-
-<!-- 5. TÔI CÓ PHÙ HỢP -->
-<section id="phu-hop" class="band tabpanel-main accent-rose">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="sec-icon"><svg><use href="#i-check"/></svg></div>
-      <span class="eyebrow center">05 — Tôi có phù hợp</span>
-      <h2 class="title">Thông tin minh bạch để cả hai bên không mất thời gian của nhau</h2>
-      <p>Lương thực nhận theo giai đoạn, quy trình 3 vòng, JD đầy đủ, và một bộ tự đánh giá.</p>
-    </div>
-
-    <div class="stage-gate" data-stage="4"></div>
-
-    <p style="font-size:.85rem;color:var(--ink-2);margin-bottom:10px"><b style="color:var(--ink)">Công thức:</b> Thực nhận = Lương cứng (8.000.000) + Hoa hồng (theo doanh thu deal SoE Support/Associate/Junior, tăng dần theo giai đoạn) + Phụ cấp xăng xe (500.000).</p>
-    <div class="tablewrap reveal" style="margin-bottom:16px">
-      <table class="salary">
-        <thead><tr><th>Thời gian</th><th>Lương cứng</th><th>Phụ cấp</th><th>Hoa hồng (ước tính)</th><th>Thực nhận TB</th></tr></thead>
-        <tbody>
-          <tr><td>Tháng 1–2</td><td>8.000.000</td><td>500.000</td><td>Chưa có (đang học)</td><td class="hl">~8.000.000</td></tr>
-          <tr><td>Tháng 3–4</td><td>8.000.000</td><td>500.000</td><td>SoE Support: 0 – 1.500.000</td><td class="hl">8–10 triệu</td></tr>
-          <tr><td>Tháng 5–6</td><td>8.000.000</td><td>500.000</td><td>SoE Support → SoE Associate: 1,5–3,5tr</td><td class="hl">10–12 triệu</td></tr>
-          <tr><td>Tháng 7–12</td><td>8.000.000</td><td>500.000</td><td>SoE Associate → SoE Junior: 3,5–9,5tr</td><td class="hl">12–18 triệu</td></tr>
-          <tr><td>Sau năm 1</td><td>8.000.000+</td><td>500.000</td><td>Performance-based</td><td class="hl" style="color:var(--pos)">Từ 18 triệu+</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="scrollhint">← vuốt ngang để xem đủ bảng →</p>
-    <div class="grid g-2 stagger" style="margin-bottom:30px">
-      <div class="card"><span class="k" style="color:var(--neg)">Không có</span><p>Phụ cấp ăn trưa, xe đưa đón, và một cái tên công ty lớn để flex trên LinkedIn trong 2 năm đầu.</p></div>
-      <div class="card"><span class="k" style="color:var(--pos)">Có</span><p>Làm thật với khách thật — từ Chủ tịch đến công nhân, chịu trách nhiệm thật, thấy impact thật — nhanh hơn hầu hết nơi khác.</p></div>
-    </div>
-
-    <p class="row-label" style="font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);text-align:center;margin-bottom:14px">Quy trình tuyển chọn — 3 vòng trong 2 tuần</p>
-    <div class="grid g-3 stagger" style="margin-bottom:30px">
-      <div class="card"><span class="k">Vòng 1 · Online</span><h3>CV + 1 câu hỏi</h3><p>Gửi CV kèm câu trả lời ≤ 200 chữ: <i>"Kể một lần bạn giúp ai đó giải quyết vấn đề phức tạp. Bạn tiếp cận như thế nào?"</i></p></div>
-      <div class="card"><span class="k">Vòng 2 · Offline</span><h3>Phỏng vấn với SoE Leader</h3><p>Thảo luận cách tư duy khi tiếp cận bài toán, định hướng phát triển. Đánh giá potential và mindset — không phải kinh nghiệm.</p></div>
-      <div class="card"><span class="k">Vòng 3 · Offline</span><h3>Conversation (45 phút)</h3><p>Nói chuyện thật với SoE Manager về career và những gì bạn sẵn sàng đánh đổi. Vòng này để <b>cả hai bên</b> quyết định.</p></div>
-    </div>
-
-    <div class="jd reveal" style="margin-bottom:30px">
-      <div class="jd-head">
-        <div><b>Solutions Engineer (Pre-Sales B2B)</b><span>Base.vn · TP. Hồ Chí Minh · Full-time · T2–T6 08:30–18:00 · T7 08:30–12:00</span></div>
-        <div class="pay"><b>8M + Hoa hồng</b><span>+ Phụ cấp xăng xe 500K</span></div>
+      <div class="tabs reveal" role="tablist" aria-label="Career path">
+        <button role="tab" aria-selected="true" data-cp="0">Ở lại tech</button>
+        <button role="tab" aria-selected="false" data-cp="1">Ra ngoài tech</button>
+        <button role="tab" aria-selected="false" data-cp="2">Startup vs MNC</button>
+        <button role="tab" aria-selected="false" data-cp="3">3 câu hỏi quyết định</button>
       </div>
-      <div class="jd-k">Vai trò thực sự</div>
-      <p>Khách hàng của Base không mua phần mềm — họ mua lời giải cho bài toán vận hành. SoE là người đứng ở điểm đó: nhận biết bài toán thật, thấu hiểu nguyên nhân gốc, hóa giải lo ngại và lên giải pháp phù hợp — rồi chứng minh bằng showcase trực tiếp với C-level và D-level. Là tư vấn có ownership về kết quả, không phải demo tính năng.</p>
-      <div class="jd-k">Bạn phù hợp nếu</div>
-      <ul>
-        <li class="pos">Có 0–2 năm kinh nghiệm, đang cảm thấy bí — làm đi làm lại việc giống nhau, không thấy career path rõ</li>
-        <li class="pos">Muốn làm thật với người thật — không phải project mô phỏng hay rotation 6 tháng/phòng</li>
-        <li class="pos">Tò mò về cách doanh nghiệp vận hành và muốn là người giúp họ giải quyết bài toán đó</li>
-        <li class="pos">Sẵn sàng học bằng cách làm — chịu được cảm giác không biết câu trả lời ngay lập tức</li>
-        <li class="pos">Background: Sales B2B bất kỳ ngành, Implementation/BA phần mềm, hoặc chưa nhiều kinh nghiệm nhưng có track record thực chiến</li>
-      </ul>
-      <div class="jd-k">Bạn không phù hợp nếu</div>
-      <ul>
-        <li class="neg">Đang cân nhắc giữa Base và MT program MNC, và lý do chính là tên công ty trên CV → chọn MT program</li>
-        <li class="neg">Muốn structure rõ ràng từng ngày và không thích ambiguity, đặc biệt 6 tháng đầu</li>
-        <li class="neg">Lương cứng 8M trong giai đoạn đầu là dealbreaker với bạn ở giai đoạn này</li>
-      </ul>
-      <div class="jd-k">Tố chất thực sự</div>
-      <ul>
-        <li>Người có câu hỏi, không chỉ câu trả lời trôi chảy</li>
-        <li>Đã từng tự làm gì đó và chịu trách nhiệm — không cần hoàn hảo, cần là thật và là của mình</li>
-        <li>Revenue-oriented nhưng không bán bằng mọi giá — biết khi nào deal không fit và dám nói thẳng</li>
-        <li>Biết mình không biết gì — không giả vờ</li>
-      </ul>
+      <div id="cp-panels"></div>
+      <div class="journey-recap reveal" id="journey-recap"></div>
     </div>
+  </section>
 
-    <p class="row-label" style="font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);text-align:center;margin-bottom:14px">Tự check trước khi apply</p>
-    <div class="check-progress" id="check-progress">Đã chọn 0/8</div>
-    <div class="reveal" id="checklist"></div>
-    <div class="result" id="check-result"></div>
-
-    <div class="finalcta-inline reveal">
-      <span class="eyebrow center">Câu hỏi cuối trước khi apply</span>
-      <h2>"Sau 2 năm ở đây, tôi muốn là người biết làm gì?"</h2>
-      <p class="q">Nếu câu trả lời là: có thể ngồi với CEO của bất kỳ doanh nghiệp nào và có ích ngay lập tức — thì apply.</p>
-      <div class="actions">
-        <a class="btn btn-dark" href="https://careers.base.vn" target="_blank" rel="noopener">Apply tại careers.base.vn →</a>
-        <a class="btn btn-outline-dark" href="#top">Đọc lại từ đầu</a>
-      </div>
-      <div class="fine">Tuyển đủ sẽ đóng — không có deadline cố định.</div>
-    </div>
-  </div>
-</section>
-
-<!-- 6. CAREER PATH -->
-<section id="career-path" class="band tabpanel-main accent-green">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="sec-icon"><svg><use href="#i-layers"/></svg></div>
-      <span class="eyebrow center">06 — Career path</span>
-      <h2 class="title">SoE là một trong những vị trí có ROI career cao nhất — nếu làm đúng</h2>
-      <p>4 hướng đi từ đây, và framework 3 câu hỏi để đánh giá bất kỳ career move nào.</p>
-    </div>
-
-    <div class="stage-gate" data-stage="5"></div>
-
-    <div class="tabs reveal" role="tablist" aria-label="Career path">
-      <button role="tab" aria-selected="true" data-cp="0">Ở lại tech</button>
-      <button role="tab" aria-selected="false" data-cp="1">Ra ngoài tech</button>
-      <button role="tab" aria-selected="false" data-cp="2">Startup vs MNC</button>
-      <button role="tab" aria-selected="false" data-cp="3">3 câu hỏi quyết định</button>
-    </div>
-    <div id="cp-panels"></div>
-    <div class="journey-recap reveal" id="journey-recap"></div>
-  </div>
-</section>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>
