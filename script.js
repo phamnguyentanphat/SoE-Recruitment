@@ -1,5 +1,164 @@
-/* tiến trình game — đọc sớm để activateTab() chặn nhảy cóc tab chưa mở khoá */
-window.__soeProgress = (function(){ try{ return parseInt(localStorage.getItem('soe_game_progress')||'0',10)||0; }catch(e){ return 0; } })();
+
+/* ============ ARCHETYPE QUIZ — top-level, chạy trước mọi nội dung, dùng chung toàn trang ============ */
+var AKEY='archetype_result';
+var ARCH_QUIZ={
+  order:['technician','consultant','storyteller','hybrid'],
+  data:{
+    technician:{n:'The Technician',d:'Bạn mạnh về nắm chắc sản phẩm và cấu hình nhanh — nền tảng bắt buộc trước khi build thêm chất Consultant lên trên.',icon:'#i-arch-technician',color:'#1650EF'},
+    consultant:{n:'The Consultant',d:'Bạn thiên về tư vấn thật sự — đúng archetype lý tưởng mà một SoE giỏi hướng tới sau 2–3 năm.',icon:'#i-arch-consultant',color:'#15803D'},
+    storyteller:{n:'The Storyteller',d:'Bạn giỏi kết nối và kể chuyện — nhớ bồi thêm chiều sâu kỹ thuật để không chỉ dừng ở "bán khí công".',icon:'#i-arch-storyteller',color:'#B7791F'},
+    hybrid:{n:'The Hybrid Builder',d:'Bạn thích nhân bản impact qua người khác — tố chất của một SoE Lead tương lai.',icon:'#i-arch-hybrid',color:'#6D5BD0'}
+  },
+  qs:[
+    {t:'1. Gặp một bài toán mới của khách hàng, phản xạ đầu tiên của bạn là gì?', opts:[
+      {arch:'technician',t:'Mở ngay hệ thống, thử cấu hình xem giải pháp nào khả thi'},
+      {arch:'storyteller',t:'Kể một câu chuyện tương tự đã từng gặp để tạo kết nối trước'},
+      {arch:'consultant',t:'Hỏi thêm để hiểu vì sao bài toán này quan trọng với họ lúc này'},
+      {arch:'hybrid',t:'Nghĩ ngay ai trong team từng gặp case tương tự để hỏi kinh nghiệm'}
+    ]},
+    {t:'2. Bạn tự tin nhất khi nào?', opts:[
+      {arch:'technician',t:'Khi bị hỏi sâu chi tiết kỹ thuật của sản phẩm'},
+      {arch:'storyteller',t:'Khi đứng trước đám đông kể chuyện, tạo cảm xúc'},
+      {arch:'consultant',t:'Khi ngồi với người ra quyết định bàn chiến lược'},
+      {arch:'hybrid',t:'Khi hướng dẫn, coach một người mới'}
+    ]},
+    {t:'3. Điều bạn ngại nhất trong công việc?', opts:[
+      {arch:'technician',t:'Phải nói chuyện phiếm thay vì đi thẳng vào vấn đề'},
+      {arch:'storyteller',t:'Bị hỏi dồn chi tiết kỹ thuật mình chưa nắm chắc'},
+      {arch:'consultant',t:'Phải bán một thứ mà bạn biết khách không thực sự cần'},
+      {arch:'hybrid',t:'Chỉ làm một mình, không ai để chia sẻ hay nhân bản cách làm'}
+    ]},
+    {t:'4. Bạn muốn được nhớ đến vì điều gì?', opts:[
+      {arch:'technician',t:'Người nắm chắc sản phẩm nhất team'},
+      {arch:'storyteller',t:'Người truyền cảm hứng, ai cũng thích nói chuyện cùng'},
+      {arch:'consultant',t:'Người khách hàng tin tưởng tuyệt đối như cố vấn riêng'},
+      {arch:'hybrid',t:'Người xây được cả một đội ngũ giỏi'}
+    ]}
+  ]
+};
+function getArchetype(){
+  try{ var v=localStorage.getItem(AKEY); if(v && ARCH_QUIZ.data[v]) return v; }catch(e){}
+  return null;
+}
+function saveArchetype(k){ try{ localStorage.setItem(AKEY,k); }catch(e){} }
+
+function buildArchSelect(container,onDone){
+  var sky1='#0B1E52', sky2='#17347A'; // = LEVELS[0].sky1/sky2 trong FLAPPY STAGE GATE — duplicate hằng số nhỏ vì LEVELS chưa khai báo tới vị trí này trong file
+  var answers=[];
+  function renderQ(qi){
+    var q=ARCH_QUIZ.qs[qi];
+    container.innerHTML=
+      '<div class="arch-gate" style="background:linear-gradient(160deg,'+sky1+','+sky2+')">'+
+        '<div class="icon"><svg><use href="#i-spark"/></svg></div>'+
+        '<b class="title">Trước khi bắt đầu — 10 năm nữa, bạn muốn định vị mình là ai?</b>'+
+        '<p class="lead">4 câu hỏi nhanh, chọn phản xạ thật của bạn — hé lộ hình mẫu bạn đang hướng tới. Nhân vật này sẽ đồng hành xuyên suốt 6 chặng phía sau.</p>'+
+        '<span class="arch-progress">Câu '+(qi+1)+'/'+ARCH_QUIZ.qs.length+'</span>'+
+        '<p class="arch-qtext">'+q.t+'</p>'+
+        '<div class="arch-opts">'+
+          q.opts.map(function(o){ return '<button class="arch-opt" type="button" data-arch="'+o.arch+'">'+o.t+'</button>'; }).join('')+
+        '</div>'+
+      '</div>';
+    container.querySelectorAll('.arch-opt').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        answers.push(btn.dataset.arch);
+        if(qi+1<ARCH_QUIZ.qs.length) renderQ(qi+1); else renderResult();
+      });
+    });
+  }
+  function computeWinner(){
+    var tally={};
+    answers.forEach(function(a){ tally[a]=(tally[a]||0)+1; });
+    var max=-1,winner=ARCH_QUIZ.order[0];
+    ARCH_QUIZ.order.forEach(function(k){ var v=tally[k]||0; if(v>max){ max=v; winner=k; } });
+    return winner;
+  }
+  function renderResult(){
+    var key=computeWinner(), av=ARCH_QUIZ.data[key];
+    container.innerHTML=
+      '<div class="arch-gate" style="background:linear-gradient(160deg,'+sky1+','+sky2+')">'+
+        '<div class="arch-result">'+
+          '<div class="badge"><svg><use href="'+av.icon+'"/></svg></div>'+
+          '<b>10 năm nữa, bạn định vị mình là: '+av.n+'</b>'+
+          '<p>'+av.d+'</p>'+
+          '<div class="row">'+
+            '<button class="btn btn-outline-dark btn-sm" type="button" id="arch-retry">Làm lại →</button>'+
+            '<button class="btn btn-dark btn-sm" type="button" id="arch-go">Bắt đầu hành trình →</button>'+
+          '</div>'+
+        '</div>'+
+      '</div>';
+    container.querySelector('#arch-retry').addEventListener('click',function(){ answers=[]; renderQ(0); });
+    container.querySelector('#arch-go').addEventListener('click',function(){ saveArchetype(key); if(window.soeGA) soeGA('archetype_selected',{archetype:key}); onDone(); });
+  }
+  renderQ(0);
+}
+
+function personalizeArchCopy(){
+  var k=getArchetype(), av=k && ARCH_QUIZ.data[k];
+  if(!av) return; // chưa có kết quả — giữ nguyên text tĩnh có sẵn trong HTML, không bao giờ render "undefined"
+  var introEl=document.getElementById('chan-dung-intro');
+  if(introEl) introEl.textContent='Bạn đã được xếp vào '+av.n+' — đây là cách nó khác 3 kiểu còn lại.';
+}
+personalizeArchCopy(); // khách quay lại, archetype đã lưu sẵn từ trước
+
+/* overlay bắt buộc — chặn toàn trang tới khi trả lời xong quiz, kể cả khi URL có sẵn ?v=... */
+(function(){
+  if(getArchetype()) return;
+  var overlay=document.createElement('div');
+  overlay.className='arch-overlay';
+  overlay.id='arch-overlay';
+  document.body.appendChild(overlay);
+  document.documentElement.style.overflow='hidden';
+  buildArchSelect(overlay, function(){
+    overlay.remove();
+    document.documentElement.style.overflow='';
+    personalizeArchCopy();
+  });
+})();
+
+/* ============ FULL UNLOCK + GAME PROGRESS — mọi tab đều cần thắng game riêng, không tab nào miễn ============ */
+var FULLKEY='full_unlocked', WONKEY='soe_game_progress';
+window.__soeFullUnlocked=(function(){
+  try{ return localStorage.getItem(FULLKEY)==='true'; }catch(e){ return false; }
+})();
+window.__soeWon=(function(){
+  try{
+    var raw=JSON.parse(localStorage.getItem(WONKEY)||'[]');
+    if(!Array.isArray(raw)) throw 0;
+    /* migrate: ai đã full_unlocked=true từ bản cũ (trước khi có __soeWon) → coi như đã thắng cả 6 tab,
+       tránh bị game chặn lại ở những tab họ từng xem thoải mái. */
+    if(raw.length===0 && window.__soeFullUnlocked){
+      raw=[0,1,2,3,4,5];
+      try{ localStorage.setItem(WONKEY, JSON.stringify(raw)); }catch(e2){}
+    }
+    return raw;
+  }catch(e){ return window.__soeFullUnlocked?[0,1,2,3,4,5]:[]; }
+})();
+/* trình tự hiện hành: bản rút gọn chỉ có 3 tab 0/2/4, bản full có đủ 6 tab theo đúng thứ tự 1→6 */
+function soeCurrentSeq(){ return window.__soeFullUnlocked?[0,1,2,3,4,5]:[0,2,4]; }
+function soeIsWon(i){ return window.__soeWon.indexOf(i)>-1; }
+function soeNextInSeq(){
+  var seq=soeCurrentSeq();
+  for(var k=0;k<seq.length;k++){ if(!soeIsWon(seq[k])) return seq[k]; }
+  return -1; // đã thắng hết trình tự hiện hành
+}
+function soeMarkWon(i){
+  if(soeIsWon(i)) return;
+  window.__soeWon.push(i);
+  try{ localStorage.setItem(WONKEY, JSON.stringify(window.__soeWon)); }catch(e){}
+}
+window.soeCurrentSeq=soeCurrentSeq; window.soeIsWon=soeIsWon;
+window.soeNextInSeq=soeNextInSeq; window.soeMarkWon=soeMarkWon;
+
+/* mở toàn bộ site — gọi từ cổng xếp hạng cuối tab "phù hợp" */
+function unlockFullSite(){
+  if(window.__soeFullUnlocked) return; // idempotent
+  window.__soeFullUnlocked=true;
+  try{ localStorage.setItem(FULLKEY,'true'); }catch(e){}
+  if(window.soeUpdatePills) window.soeUpdatePills();
+  if(window.soeApplyShortNav) window.soeApplyShortNav();
+  if(window.soeRebuildNextbars) window.soeRebuildNextbars();
+}
+window.unlockFullSite=unlockFullSite;
 
 /* ============ DATA ============ */
 var STAGES=[
@@ -105,14 +264,14 @@ var CP=[
 ];
 
 var CHECKS=[
- {t:"pos",x:"Tôi muốn làm thật với người thật — không phải project mô phỏng hay rotation 6 tháng/phòng"},
- {t:"pos",x:"Tôi tò mò về cách doanh nghiệp vận hành và muốn là người giúp họ giải quyết bài toán đó"},
- {t:"pos",x:"Tôi sẵn sàng học bằng cách làm — chịu được cảm giác không biết câu trả lời ngay lập tức"},
- {t:"pos",x:"Sau 2 năm, tôi muốn có thể ngồi với CEO của bất kỳ doanh nghiệp nào và có ích ngay lập tức"},
- {t:"pos",x:"Tôi đang cảm thấy bí ở công việc hiện tại — làm đi làm lại việc giống nhau, không thấy growth"},
- {t:"neg",x:"Tôi đang cân nhắc giữa Base và MT program MNC — và lý do chính là tên công ty trên CV"},
- {t:"neg",x:"Tôi muốn structure rõ ràng từng ngày và không thích ambiguity trong giai đoạn đầu"},
- {t:"neg",x:"Lương cứng 8M trong giai đoạn đầu là dealbreaker với tôi ở giai đoạn này"}
+ {id:1,t:"pos",x:"Tôi muốn làm thật với người thật — không phải project mô phỏng hay rotation 6 tháng/phòng"},
+ {id:2,t:"pos",x:"Tôi tò mò về cách doanh nghiệp vận hành và muốn là người giúp họ giải quyết bài toán đó"},
+ {id:3,t:"pos",x:"Tôi sẵn sàng học bằng cách làm — chịu được cảm giác không biết câu trả lời ngay lập tức"},
+ {id:4,t:"pos",x:"Sau 3 năm, tôi muốn có thể ngồi với CEO của bất kỳ doanh nghiệp nào và có ích ngay lập tức"},
+ {id:5,t:"pos",x:"Tôi đang cảm thấy bí ở công việc hiện tại — làm đi làm lại việc giống nhau, không thấy growth"},
+ {id:6,t:"neg",x:"Tôi đang cân nhắc giữa Base và MT program MNC — và lý do chính là tên công ty trên CV"},
+ {id:7,t:"neg",x:"Tôi muốn structure rõ ràng từng ngày và không thích ambiguity trong giai đoạn đầu"},
+ {id:8,t:"neg",x:"Lương cứng 8M trong giai đoạn đầu là dealbreaker với tôi ở giai đoạn này"}
 ];
 
 /* ============ RENDER ============ */
@@ -252,89 +411,48 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
 
 /* self-check */
 (function(){
- var host=document.getElementById('checklist'),box=document.getElementById('check-result'),counter=document.getElementById('check-progress'),state={};
- CHECKS.forEach(function(c,i){
+ var host=document.getElementById('checklist'),box=document.getElementById('check-result'),state={};
+ var ITEMS=CHECKS.slice();
+ for(var i=ITEMS.length-1;i>0;i--){
+   var j=Math.floor(Math.random()*(i+1));
+   var tmp=ITEMS[i];ITEMS[i]=ITEMS[j];ITEMS[j]=tmp;
+ }
+ ITEMS.forEach(function(c,i){
    var d=el('div','check-item'+(c.t==='neg'?' neg':''));
-   d.innerHTML='<span class="box"><svg><use href="#'+(c.t==='neg'?'i-x':'i-check')+'"/></svg></span><p>'+c.x+'</p>';
+   var iconHTML=c.t==='neg'?'⚠':'<svg><use href="#i-check"/></svg>';
+   d.innerHTML='<span class="box">'+iconHTML+'</span><p>'+c.x+'</p>';
    d.addEventListener('click',function(){
-     state[i]=!state[i];d.classList.toggle('on',state[i]);update();
+     state[i]=!state[i];d.classList.toggle('on',state[i]);
+     if(window.soeGA) soeGA('self_check_item_toggle',{item_id:c.id,item_type:c.t,checked:state[i]});
+     update();
    });
    host.appendChild(d);
  });
  function update(){
    var pos=0,neg=0,any=0;
-   CHECKS.forEach(function(c,i){if(state[i]){any++;if(c.t==='pos')pos++;else neg++;}});
-   if(counter) counter.textContent='Đã chọn '+any+'/'+CHECKS.length;
+   ITEMS.forEach(function(c,i){if(state[i]){any++;if(c.t==='pos')pos++;else neg++;}});
    if(!any){box.classList.remove('on');return;}
    box.classList.add('on');
    var resultLabel;
-   if(neg>=2){box.style.background='var(--neg-soft)';box.style.borderColor='#F3D0CE';
-     box.innerHTML='<b style="color:var(--neg)">Hãy cân nhắc thêm</b><p>Bạn chọn một số điểm "không phù hợp". Không sao — có thể lúc này chưa phải thời điểm đúng. Base phù hợp nhất khi bạn ưu tiên growth tốc độ và learning thực chiến hơn sự an toàn của môi trường structured.</p>';
-     resultLabel='Cân nhắc thêm';
-   }else if(pos>=3){box.style.background='var(--pos-soft)';box.style.borderColor='#CBEBD5';
-     box.innerHTML='<b style="color:var(--pos)">Có vẻ bạn đang phù hợp</b><p>Những gì bạn chọn cho thấy mindset phù hợp với SoE tại Base. Bước tiếp theo: apply và để buổi phỏng vấn vòng 2 với SoE Leader xác nhận thêm — đó là nơi cả hai bên thực sự hiểu nhau.</p>';
+   if(neg===0){box.style.background='var(--pos-soft)';box.style.borderColor='#CBEBD5';
+     box.innerHTML='<b style="color:var(--pos)">Có vẻ bạn đang phù hợp</b><p>Những gì bạn chọn cho thấy mindset phù hợp với SoE tại Base. Bước tiếp theo: apply và để buổi phỏng vấn vòng 2 với SoE Leader xác nhận thêm — đó là nơi cả hai bên thực sự hiểu nhau.</p><a class="btn btn-dark btn-sm" href="https://careers.base.vn" target="_blank" rel="noopener" style="margin-top:10px;display:inline-flex">Apply ngay tại careers.base.vn →</a>';
      resultLabel='Phù hợp';
-   }else{box.style.background='var(--bg-tint)';box.style.borderColor='var(--line)';
-     box.innerHTML='<p>Tiếp tục chọn để xem kết quả phân tích rõ hơn.</p>';
-     resultLabel='Trung lập';
+   }else if(neg===1){box.style.background='var(--warm-soft)';box.style.borderColor='#EFD9AE';
+     box.innerHTML='<b style="color:var(--warm)">Gần như phù hợp — còn 1 điểm đáng nghĩ thêm</b><p>Bạn có 1 điểm băn khoăn — không phải dealbreaker, nhưng đáng để hiểu rõ hơn trước khi quyết định. Nhiều SoE hiện tại cũng từng lăn tăn đúng điểm này ở giai đoạn đầu.</p><a class="btn btn-ghost btn-sm" href="#hanh-trinh" style="margin-top:10px;display:inline-flex">Xem hành trình phát triển thực tế →</a>';
+     resultLabel='Cân nhắc nhẹ';
+   }else{box.style.background='var(--neg-soft)';box.style.borderColor='#F3D0CE';
+     box.innerHTML='<b style="color:var(--neg)">Hãy cân nhắc thêm</b><p>Bạn chọn một số điểm "cần cân nhắc". Không sao — có thể lúc này chưa phải thời điểm đúng. Base phù hợp nhất khi bạn ưu tiên growth tốc độ và learning thực chiến hơn sự an toàn của môi trường structured.</p><a class="btn btn-ghost btn-sm" href="https://careers.base.vn" target="_blank" rel="noopener" style="margin-top:10px;display:inline-flex">Vẫn muốn trò chuyện thử? Xem các vị trí khác đang tuyển →</a>';
+     resultLabel='Cân nhắc thêm';
    }
    if(window.soeGA) soeGA('self_check_result',{yes_count:pos,no_count:neg,result_label:resultLabel});
  }
-})();
-
-/* mini-quiz archetype (tab 02) */
-(function(){
- var ARCH={
-   technician:{n:'The Technician',d:'Bạn mạnh về nắm chắc sản phẩm và cấu hình nhanh — nền tảng bắt buộc trước khi build thêm chất Consultant lên trên.'},
-   storyteller:{n:'The Storyteller',d:'Bạn giỏi kết nối và kể chuyện — nhớ bồi thêm chiều sâu kỹ thuật để không chỉ dừng ở "bán khí công".'},
-   consultant:{n:'The Consultant',d:'Bạn thiên về tư vấn thật sự — đúng archetype lý tưởng mà một SoE giỏi hướng tới sau 2–3 năm.'},
-   hybrid:{n:'The Hybrid Builder',d:'Bạn thích nhân bản impact qua người khác — tố chất của một SoE Lead tương lai.'}
- };
- var root=document.querySelector('.quiz-box');
- if(!root) return;
- var answers={}, qs=root.querySelectorAll('.quiz-q');
- var progressEl=document.getElementById('quiz-progress'), resultEl=document.getElementById('quiz-result');
-
- function showResult(){
-   var tally={};
-   Object.keys(answers).forEach(function(k){ var a=answers[k]; tally[a]=(tally[a]||0)+1; });
-   var vals=Object.keys(tally).map(function(k){return tally[k];});
-   var max=Math.max.apply(null,vals);
-   var winners=Object.keys(tally).filter(function(k){ return tally[k]===max; });
-   var html='<b>'+winners.map(function(w){return ARCH[w].n;}).join(' & ')+'</b>';
-   html+=winners.map(function(w){return '<p>'+ARCH[w].d+'</p>';}).join('');
-   html+='<button class="btn btn-ghost btn-sm" id="quiz-reset" type="button">Làm lại →</button>';
-   resultEl.innerHTML=html;
-   resultEl.classList.add('on');
-   document.getElementById('quiz-reset').addEventListener('click',reset);
- }
- function updateProgress(){
-   var n=Object.keys(answers).length;
-   if(progressEl) progressEl.textContent='Đã trả lời '+n+'/'+qs.length;
-   if(n===qs.length) showResult();
-   else { resultEl.classList.remove('on'); resultEl.innerHTML=''; }
- }
- function reset(){
-   answers={};
-   root.querySelectorAll('.quiz-option.on').forEach(function(o){ o.classList.remove('on'); });
-   updateProgress();
- }
- qs.forEach(function(q,i){
-   q.querySelectorAll('.quiz-option').forEach(function(btn){
-     btn.addEventListener('click',function(){
-       q.querySelectorAll('.quiz-option').forEach(function(b){ b.classList.remove('on'); });
-       btn.classList.add('on');
-       answers[i]=btn.dataset.arch;
-       updateProgress();
-     });
-   });
- });
 })();
 
 /* ============ MAIN TAB NAVIGATION (6 mục) ============ */
 (function(){
  var TAB_IDS=['soe-la-gi','chan-dung','hanh-trinh','nang-luc','phu-hop','career-path'];
  var TAB_LABELS=['SoE là gì','Chân dung SoE giỏi','Hành trình phát triển','Năng lực cần build','Tôi có phù hợp?','Career path'];
+ var SHORT_IDS=[TAB_IDS[0],TAB_IDS[2],TAB_IDS[4]]; // soe-la-gi, hanh-trinh, phu-hop — bộ 3 tab của chế độ "short"
  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  var current=null;
  var pillBtns=document.querySelectorAll('.maintabs button[data-tab]');
@@ -346,8 +464,10 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
 
  function saveVisited(){ try{ localStorage.setItem(VKEY, JSON.stringify(visited)); }catch(e){} }
  function updateProgress(){
-   var n=Object.keys(visited).length;
-   if(progressEl) progressEl.textContent='Đã xem '+n+'/'+TAB_IDS.length+' mục';
+   var isShort=!window.__soeFullUnlocked;
+   var total=isShort?SHORT_IDS.length:TAB_IDS.length;
+   var seen=Object.keys(visited).filter(function(id){ return !isShort || SHORT_IDS.indexOf(id)!==-1; });
+   if(progressEl) progressEl.textContent='Đã xem '+seen.length+'/'+total+' mục';
    pillBtns.forEach(function(b){
      var dot=b.querySelector('.visited-dot');
      if(visited[b.dataset.tab]){ if(!dot){ dot=document.createElement('span'); dot.className='visited-dot'; b.appendChild(dot); } }
@@ -368,7 +488,8 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
  }
  function activateTab(id,push,scroll){
    if(TAB_IDS.indexOf(id)===-1) id=TAB_IDS[0];
-   if(TAB_IDS.indexOf(id)>window.__soeProgress){ id=TAB_IDS[window.__soeProgress]; } // chặn nhảy cóc qua giai đoạn chưa mở khoá
+   var _idx=TAB_IDS.indexOf(id);
+   if(!soeIsWon(_idx) && _idx!==soeNextInSeq()){ var ni=soeNextInSeq(); id=TAB_IDS[ni>-1?ni:0]; } // chặn nhảy cóc qua giai đoạn chưa thắng game
    var next=document.getElementById(id);
    if(!next) return;
    if(current===next){ setActiveControls(id); return; }
@@ -389,6 +510,7 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
    if(push!==false && location.hash.slice(1)!==id){ history.pushState(null,'','#'+id); }
    if(scroll!==false && anchorEl){ anchorEl.scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'}); }
  }
+ window.soeActivateTab=activateTab;
  document.addEventListener('click',function(e){
    var a=e.target.closest('a[href^="#"]');
    if(!a) return;
@@ -401,26 +523,52 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
    activateTab(TAB_IDS.indexOf(id)!==-1?id:TAB_IDS[0], false);
  });
 
- /* thanh "Tiếp theo" cuối mỗi tab */
- TAB_IDS.forEach(function(id,i){
-   var panel=document.getElementById(id);
-   var wrap=panel&&panel.querySelector('.wrap');
-   if(!wrap) return;
-   var bar=el('div','tab-nextbar');
-   if(i<TAB_IDS.length-1){
-     var nextId=TAB_IDS[i+1], nextLabel=TAB_LABELS[i+1];
-     bar.innerHTML='<span class="lbl">Tiếp theo: <b>'+String(i+2).padStart(2,'0')+' — '+nextLabel+'</b></span>'+
-       '<button class="btn btn-primary btn-sm" type="button">Xem tiếp →</button>';
-     bar.querySelector('button').addEventListener('click',function(){ activateTab(nextId); });
-   }else{
-     bar.innerHTML='<span class="lbl">Đã xem hết 6 mục — sẵn sàng chưa?</span>'+
-       '<a class="btn btn-primary btn-sm" href="https://careers.base.vn" target="_blank" rel="noopener">Ứng tuyển tại careers.base.vn →</a>';
-   }
-   wrap.appendChild(bar);
- });
+ /* thanh "Tiếp theo" cuối mỗi tab — dựng lại theo trình tự hiện hành (full: 1→6 liền mạch, short: chỉ 0→2→4) */
+ function rebuildNextbars(){
+   var seq=soeCurrentSeq();
+   seq.forEach(function(idx,k){
+     var panel=document.getElementById(TAB_IDS[idx]);
+     var wrap=panel&&panel.querySelector('.wrap');
+     if(!wrap) return;
+     var bar=wrap.querySelector('.tab-nextbar');
+     if(!bar){ bar=el('div','tab-nextbar'); wrap.appendChild(bar); }
+     if(k<seq.length-1){
+       var nextId=TAB_IDS[seq[k+1]], nextLabel=TAB_LABELS[seq[k+1]];
+       bar.innerHTML='<span class="lbl">Tiếp theo: <b>'+String(k+2).padStart(2,'0')+' — '+nextLabel+'</b></span>'+
+         '<button class="btn btn-primary btn-sm" type="button">Xem tiếp →</button>';
+       bar.querySelector('button').addEventListener('click',function(){ activateTab(nextId); });
+     }else{
+       bar.innerHTML='<span class="lbl">Đã xem hết '+seq.length+' mục — sẵn sàng chưa?</span>'+
+         '<a class="btn btn-primary btn-sm" href="https://careers.base.vn" target="_blank" rel="noopener">Ứng tuyển tại careers.base.vn →</a>';
+     }
+   });
+   TAB_IDS.forEach(function(id,idx){
+     if(seq.indexOf(idx)===-1){
+       var panel=document.getElementById(id), wrap=panel&&panel.querySelector('.wrap');
+       var bar=wrap&&wrap.querySelector('.tab-nextbar');
+       if(bar) bar.remove();
+     }
+   });
+ }
+ window.soeRebuildNextbars=rebuildNextbars;
+
+ /* lọc/đánh số lại pill nav theo full_unlocked — trước khi mở full chỉ còn 01/03/05, đánh số lại 1,2,3 */
+ function applyShortNav(){
+   var isShort=!window.__soeFullUnlocked;
+   var n=0;
+   pillBtns.forEach(function(b){
+     var show=!isShort || SHORT_IDS.indexOf(b.dataset.tab)!==-1;
+     b.classList.toggle('tab-hidden', !show);
+     if(show){ n++; var numEl=b.querySelector('.n'); if(numEl) numEl.textContent=String(n).padStart(2,'0'); }
+   });
+   updateProgress();
+ }
+ window.soeApplyShortNav=applyShortNav;
 
  var initial=TAB_IDS.indexOf(location.hash.slice(1))!==-1?location.hash.slice(1):TAB_IDS[0];
  activateTab(initial,false,false);
+ rebuildNextbars();
+ applyShortNav();
  updateProgress();
 })();
 
@@ -487,7 +635,10 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
  data.sessions=(data.sessions||0)+1;
  var curTab=null, tabStart=null;
 
- function ga(name,params){ try{ if(typeof gtag==='function') gtag('event',name,params||{}); }catch(e){} }
+ function ga(name,params){
+   try{ if(typeof gtag==='function') gtag('event',name,params||{}); }catch(e){}
+   try{ if(typeof clarity==='function') clarity('event',name); }catch(e){}
+ }
  window.soeGA=ga; // dùng lại ở IIFE game (archetype/level/journey) bên dưới
 
  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(data)); }catch(e){} }
@@ -530,7 +681,6 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
    ['.journey-recap a','apply-recap'],
    ['#recap-copy','recap-copy'],
    ['.check-item','checklist-item'],
-   ['.quiz-option','quiz-answer'],
    ['.arch-opt','archetype-answer'],
    ['#arch-go','archetype-confirm'],
    ['.gi-cta','game-start'],
@@ -599,7 +749,6 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
 
 /* ============ FLAPPY STAGE GATE — mở khóa tuần tự 6 tab bằng game ============ */
 (function(){
- var PKEY='soe_game_progress';
  var TAB_IDS=['soe-la-gi','chan-dung','hanh-trinh','nang-luc','phu-hop','career-path'];
  var LEVELS=[
   {name:'SoE là gì', mode:'fly',   sky1:'#0B1E52',sky2:'#17347A',pipe:'#3B7BF0',target:5,speed:170,gap:.42,
@@ -655,101 +804,8 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
  LEVELS[3].labels = CORE.map(function(c){ return {t:c.n.replace('\n',' '), d:c.d.map(function(x){return x.n;}).join(' · ')}; });
  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
- /* nhân vật hoá thân — tái dùng đúng dữ liệu + 4 câu hỏi archetype đã có ở tab Chân dung (ARCH),
-    khai báo riêng trong IIFE này theo đúng tiền lệ TAB_IDS ở trên (duplicate hằng số nhỏ, không share global) */
- var AKEY='soe_archetype';
- var ARCH_QUIZ={
-   order:['technician','consultant','storyteller','hybrid'],
-   data:{
-     technician:{n:'The Technician',d:'Bạn mạnh về nắm chắc sản phẩm và cấu hình nhanh — nền tảng bắt buộc trước khi build thêm chất Consultant lên trên.',icon:'#i-arch-technician',color:'#1650EF'},
-     consultant:{n:'The Consultant',d:'Bạn thiên về tư vấn thật sự — đúng archetype lý tưởng mà một SoE giỏi hướng tới sau 2–3 năm.',icon:'#i-arch-consultant',color:'#15803D'},
-     storyteller:{n:'The Storyteller',d:'Bạn giỏi kết nối và kể chuyện — nhớ bồi thêm chiều sâu kỹ thuật để không chỉ dừng ở "bán khí công".',icon:'#i-arch-storyteller',color:'#B7791F'},
-     hybrid:{n:'The Hybrid Builder',d:'Bạn thích nhân bản impact qua người khác — tố chất của một SoE Lead tương lai.',icon:'#i-arch-hybrid',color:'#6D5BD0'}
-   },
-   qs:[
-     {t:'1. Gặp một bài toán mới của khách hàng, phản xạ đầu tiên của bạn là gì?', opts:[
-       {arch:'technician',t:'Mở ngay hệ thống, thử cấu hình xem giải pháp nào khả thi'},
-       {arch:'storyteller',t:'Kể một câu chuyện tương tự đã từng gặp để tạo kết nối trước'},
-       {arch:'consultant',t:'Hỏi thêm để hiểu vì sao bài toán này quan trọng với họ lúc này'},
-       {arch:'hybrid',t:'Nghĩ ngay ai trong team từng gặp case tương tự để hỏi kinh nghiệm'}
-     ]},
-     {t:'2. Bạn tự tin nhất khi nào?', opts:[
-       {arch:'technician',t:'Khi bị hỏi sâu chi tiết kỹ thuật của sản phẩm'},
-       {arch:'storyteller',t:'Khi đứng trước đám đông kể chuyện, tạo cảm xúc'},
-       {arch:'consultant',t:'Khi ngồi với người ra quyết định bàn chiến lược'},
-       {arch:'hybrid',t:'Khi hướng dẫn, coach một người mới'}
-     ]},
-     {t:'3. Điều bạn ngại nhất trong công việc?', opts:[
-       {arch:'technician',t:'Phải nói chuyện phiếm thay vì đi thẳng vào vấn đề'},
-       {arch:'storyteller',t:'Bị hỏi dồn chi tiết kỹ thuật mình chưa nắm chắc'},
-       {arch:'consultant',t:'Phải bán một thứ mà bạn biết khách không thực sự cần'},
-       {arch:'hybrid',t:'Chỉ làm một mình, không ai để chia sẻ hay nhân bản cách làm'}
-     ]},
-     {t:'4. Bạn muốn được nhớ đến vì điều gì?', opts:[
-       {arch:'technician',t:'Người nắm chắc sản phẩm nhất team'},
-       {arch:'storyteller',t:'Người truyền cảm hứng, ai cũng thích nói chuyện cùng'},
-       {arch:'consultant',t:'Người khách hàng tin tưởng tuyệt đối như cố vấn riêng'},
-       {arch:'hybrid',t:'Người xây được cả một đội ngũ giỏi'}
-     ]}
-   ]
- };
- function getArchetype(){
-   try{ var v=localStorage.getItem(AKEY); if(v && ARCH_QUIZ.data[v]) return v; }catch(e){}
-   return null;
- }
- function saveArchetype(k){ try{ localStorage.setItem(AKEY,k); }catch(e){} }
-
- function buildArchSelect(container,onDone){
-   var sky1=LEVELS[0].sky1, sky2=LEVELS[0].sky2;
-   var answers=[];
-   function renderQ(qi){
-     var q=ARCH_QUIZ.qs[qi];
-     container.innerHTML=
-       '<div class="arch-gate" style="background:linear-gradient(160deg,'+sky1+','+sky2+')">'+
-         '<div class="icon"><svg><use href="#i-spark"/></svg></div>'+
-         '<b class="title">Trước khi bắt đầu — 10 năm nữa, bạn muốn định vị mình là ai?</b>'+
-         '<p class="lead">4 câu hỏi nhanh, chọn phản xạ thật của bạn — hé lộ hình mẫu bạn đang hướng tới. Nhân vật này sẽ đồng hành xuyên suốt 6 chặng phía sau.</p>'+
-         '<span class="arch-progress">Câu '+(qi+1)+'/'+ARCH_QUIZ.qs.length+'</span>'+
-         '<p class="arch-qtext">'+q.t+'</p>'+
-         '<div class="arch-opts">'+
-           q.opts.map(function(o){ return '<button class="arch-opt" type="button" data-arch="'+o.arch+'">'+o.t+'</button>'; }).join('')+
-         '</div>'+
-       '</div>';
-     container.querySelectorAll('.arch-opt').forEach(function(btn){
-       btn.addEventListener('click',function(){
-         answers.push(btn.dataset.arch);
-         if(qi+1<ARCH_QUIZ.qs.length) renderQ(qi+1); else renderResult();
-       });
-     });
-   }
-   function computeWinner(){
-     var tally={};
-     answers.forEach(function(a){ tally[a]=(tally[a]||0)+1; });
-     var max=-1,winner=ARCH_QUIZ.order[0];
-     ARCH_QUIZ.order.forEach(function(k){ var v=tally[k]||0; if(v>max){ max=v; winner=k; } });
-     return winner;
-   }
-   function renderResult(){
-     var key=computeWinner(), av=ARCH_QUIZ.data[key];
-     container.innerHTML=
-       '<div class="arch-gate" style="background:linear-gradient(160deg,'+sky1+','+sky2+')">'+
-         '<div class="arch-result">'+
-           '<div class="badge"><svg><use href="'+av.icon+'"/></svg></div>'+
-           '<b>10 năm nữa, bạn định vị mình là: '+av.n+'</b>'+
-           '<p>'+av.d+'</p>'+
-           '<div class="row">'+
-             '<button class="btn btn-outline-dark btn-sm" type="button" id="arch-retry">Làm lại →</button>'+
-             '<button class="btn btn-dark btn-sm" type="button" id="arch-go">Bắt đầu hành trình →</button>'+
-           '</div>'+
-         '</div>'+
-       '</div>';
-     container.querySelector('#arch-retry').addEventListener('click',function(){ answers=[]; renderQ(0); });
-     container.querySelector('#arch-go').addEventListener('click',function(){ saveArchetype(key); if(window.soeGA) soeGA('archetype_selected',{archetype:key}); onDone(); });
-   }
-   renderQ(0);
- }
-
- function saveProgress(p){ window.__soeProgress=p; try{ localStorage.setItem(PKEY,String(p)); }catch(e){} }
+ /* ARCH_QUIZ/getArchetype/saveArchetype/buildArchSelect đã chuyển lên top-level đầu file
+    (chạy trước cả tab 1, không còn nhúng riêng trong cổng game của tab này) — dùng lại qua closure. */
 
  /* âm thanh — tổng hợp bằng Web Audio API, không cần file ngoài; AudioContext khởi tạo lười ở lần bấm đầu */
  var SKEY='soe_sound_on';
@@ -875,7 +931,7 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
  function updatePills(){
    document.querySelectorAll('.maintabs button[data-tab]').forEach(function(b){
      var i=TAB_IDS.indexOf(b.dataset.tab);
-     var locked=i>window.__soeProgress;
+     var locked=!soeIsWon(i) && i!==soeNextInSeq();
      b.classList.toggle('locked',locked);
      b.disabled=locked;
      var lockEl=b.querySelector('.lock');
@@ -886,22 +942,24 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
      }else if(!locked && lockEl){ lockEl.remove(); }
    });
  }
+ window.soeUpdatePills=updatePills;
 
  function clearStage(i){
-   if(i+1>window.__soeProgress) saveProgress(i+1);
+   soeMarkWon(i);
    updatePills();
    var section=document.getElementById(TAB_IDS[i]);
    var gate=section.querySelector('.stage-gate');
    gate.classList.add('stage-hidden');
    showContent(section);
    replayReveal(section);
-   if(i===5){ buildRecap(true); if(window.soeGA) soeGA('journey_completed',{archetype:getArchetype()||''}); }
+   if(i===5){ buildRecap(true); }
  }
 
  function buildRecap(celebrate){
    var el=document.getElementById('journey-recap');
    if(!el || el.dataset.built) return;
    el.dataset.built='1';
+   if(window.soeGA) soeGA('journey_completed',{archetype:getArchetype()||''}); // chuyển từ clearStage() sang đây để bắn đúng 1 lần dù đi đường chơi game hay được force-unlock
    var avKey=getArchetype()||'technician', av=ARCH_QUIZ.data[avKey];
    var stagesHTML=LEVELS.map(function(lv,idx){
      var s=stageStats[idx];
@@ -1255,12 +1313,11 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
    if(gateBuilt[i]) return;
    var id=TAB_IDS[i],section=document.getElementById(id),cfg=LEVELS[i];
    var gate=section.querySelector('.stage-gate');
-   if(i<window.__soeProgress){ gate.classList.add('stage-hidden'); showContent(section); gateBuilt[i]=true; if(i===5) buildRecap(); return; }
+   if(soeIsWon(i)){ gate.classList.add('stage-hidden'); showContent(section); gateBuilt[i]=true; if(i===5) buildRecap(); return; }
    var onWin=function(){ clearStage(i); };
    function startGateGame(){ if(reduce){ buildStatic(gate,cfg,i,onWin); } else { buildGame(gate,cfg,i,onWin); } }
    function startWithIntro(){ buildIntro(gate,cfg,i,startGateGame); }
    gateBuilt[i]=true;
-   if(i===0 && !getArchetype()){ buildArchSelect(gate,startWithIntro); return; }
    startWithIntro();
  }
 
@@ -1270,7 +1327,7 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
     khi activateTab() thật sự chuyển tới, qua sự kiện soe:tabchange. */
  TAB_IDS.forEach(function(id,i){
    var section=document.getElementById(id);
-   if(i<window.__soeProgress){ section.querySelector('.stage-gate').classList.add('stage-hidden'); showContent(section); gateBuilt[i]=true; if(i===5) buildRecap(); }
+   if(soeIsWon(i)){ section.querySelector('.stage-gate').classList.add('stage-hidden'); showContent(section); gateBuilt[i]=true; if(i===5) buildRecap(); }
    else{ hideContent(section); }
  });
  var activeSection=document.querySelector('.tabpanel-main.on');
@@ -1281,4 +1338,252 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
  });
 
  updatePills();
+})();
+
+/* ============ PRIORITY RANKING GATE — bottom-sheet cuối tab "phù hợp", mở full_unlocked ============ */
+(function(){
+  if(window.__soeFullUnlocked) return; // đã mở khoá từ trước — không dựng cổng này nữa
+
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var sentinel=document.getElementById('rank-gate-sentinel');
+  if(!sentinel) return;
+
+  var ITEMS=[
+    {id:'speed',       t:'Tốc độ học qua va chạm thực tế'},
+    {id:'balance',     t:'Cân bằng công việc – cuộc sống, nhịp độ ổn định'},
+    {id:'impact',      t:'Được thấy tác động thật từ công việc'},
+    {id:'income',      t:'Thu nhập ổn định ngay từ đầu'},
+    {id:'autonomy',    t:'Tự chủ đưa ra giải pháp, không chờ chỉ dẫn'},
+    {id:'recognition', t:'Được ghi nhận cá nhân trước khách hàng'}
+  ];
+  var byId={}; ITEMS.forEach(function(it){ byId[it.id]=it; });
+  function shuffledIds(){
+    var arr=ITEMS.map(function(x){ return x.id; });
+    for(var i=arr.length-1;i>0;i--){
+      var j=Math.floor(Math.random()*(i+1));
+      var tmp=arr[i]; arr[i]=arr[j]; arr[j]=tmp;
+    }
+    return arr;
+  }
+
+  var built=false;
+  function buildSheet(){
+    if(built) return; built=true;
+
+    var initialOrder=shuffledIds();
+    var order=initialOrder.slice();
+    var hasInteracted=false;
+
+    var backdrop=el('div','rank-sheet-backdrop');
+    var sheet=el('div','rank-sheet');
+    sheet.setAttribute('role','dialog');
+    sheet.setAttribute('aria-modal','true');
+    sheet.setAttribute('aria-labelledby','rank-sheet-title');
+    sheet.innerHTML=
+      '<div class="rank-sheet-head">'+
+        '<h3 id="rank-sheet-title">Trước khi xem tiếp</h3>'+
+        '<p class="rank-sheet-instr">Kéo để xếp thứ tự từ quan trọng nhất (1) đến ít quan trọng nhất (6):</p>'+
+        '<p class="rank-sheet-sub">Không có đáp án đúng/sai — giúp bạn tự nhìn lại ưu tiên của mình, và giúp tụi mình biết nên trao đổi gì nếu có dịp gặp nhau.</p>'+
+      '</div>'+
+      '<div class="rank-list" id="rank-list"></div>'+
+      '<div class="rank-sheet-foot rank-sheet-foot-2col">'+
+        '<button class="btn btn-ghost" id="rank-decline-btn" type="button" disabled>Không xem nữa</button>'+
+        '<button class="btn btn-primary" id="rank-continue-btn" type="button" disabled>Xem tiếp →</button>'+
+      '</div>';
+    document.body.appendChild(backdrop);
+    document.body.appendChild(sheet);
+    document.documentElement.style.overflow='hidden';
+
+    var listEl=sheet.querySelector('#rank-list');
+    var declineBtn=sheet.querySelector('#rank-decline-btn');
+    var continueBtn=sheet.querySelector('#rank-continue-btn');
+
+    function rowEl(id){ return listEl.querySelector('.rank-row[data-id="'+id+'"]'); }
+    function updateBadges(){
+      Array.prototype.forEach.call(listEl.children,function(row,idx){ row.querySelector('.rank-badge').textContent=idx+1; });
+    }
+    function renderRows(){
+      listEl.innerHTML='';
+      order.forEach(function(id,idx){
+        var row=el('div','rank-row'); row.dataset.id=id;
+        row.innerHTML=
+          '<span class="rank-badge">'+(idx+1)+'</span>'+
+          '<span class="rank-label">'+byId[id].t+'</span>'+
+          '<span class="rank-arrows">'+
+            '<button type="button" class="rank-arrow up" aria-label="Di chuyển lên">▲</button>'+
+            '<button type="button" class="rank-arrow down" aria-label="Di chuyển xuống">▼</button>'+
+          '</span>'+
+          '<span class="rank-handle" aria-hidden="true">☰</span>';
+        listEl.appendChild(row);
+      });
+    }
+    function markInteracted(){
+      // nút bật/tắt PHẢI phản ánh đúng trạng thái hiện tại mỗi lần gọi (kể cả khi đổi rồi đổi lại
+      // về đúng thứ tự ban đầu) — tách riêng khỏi việc bắn event 'ranking_interacted' (chỉ 1 lần
+      // duy nhất, đánh dấu lần tương tác thật sự đầu tiên trong cả phiên).
+      var changed=order.some(function(id,i){ return id!==initialOrder[i]; });
+      declineBtn.disabled=!changed;
+      continueBtn.disabled=!changed;
+      if(changed && !hasInteracted){
+        hasInteracted=true;
+        try{ window.gtag && window.gtag('event','ranking_interacted'); }catch(e){}
+      }
+    }
+
+    /* fallback mũi tên lên/xuống — LUÔN hiển thị (không chỉ khi reduced-motion): vừa là lối thoát
+       cho ai không kéo được/không dùng chuột-cảm ứng thuận tiện, vừa giúp thao tác bằng bàn phím. */
+    listEl.addEventListener('click', function(e){
+      var upBtn=e.target.closest('.rank-arrow.up'), downBtn=e.target.closest('.rank-arrow.down');
+      if(!upBtn && !downBtn) return;
+      var row=e.target.closest('.rank-row');
+      var idx=order.indexOf(row.dataset.id);
+      var swapWith=upBtn?idx-1:idx+1;
+      if(swapWith<0||swapWith>=order.length) return;
+      var tmp=order[idx]; order[idx]=order[swapWith]; order[swapWith]=tmp;
+      renderRows();
+      markInteracted();
+    });
+
+    /* kéo-thả bằng Pointer Events — thuật toán "ghost row" chi tiết ở kế hoạch triển khai */
+    var drag=null;
+    listEl.addEventListener('pointerdown', function(e){
+      var handle=e.target.closest('.rank-handle');
+      if(!handle) return;
+      var row=handle.closest('.rank-row');
+      e.preventDefault();
+      drag={ id:row.dataset.id, el:row, lastClientY:e.clientY, startClientY:e.clientY, startOffsetTop:row.offsetTop, raf:null };
+      row.classList.add('dragging');
+      row.style.transition='none';
+      Array.prototype.forEach.call(listEl.children,function(r){ if(r!==row) r.classList.add('rank-row-settling'); });
+      try{ row.setPointerCapture(e.pointerId); }catch(err){}
+      document.addEventListener('pointermove', onDragMove);
+      document.addEventListener('pointerup', onDragEnd);
+      document.addEventListener('pointercancel', onDragEnd);
+      scheduleFrame();
+    });
+    function onDragMove(e){ if(drag){ drag.lastClientY=e.clientY; scheduleFrame(); } }
+    function scheduleFrame(){ if(drag && !drag.raf) drag.raf=requestAnimationFrame(applyFrame); }
+    function applyFrame(){
+      if(!drag) return;
+      var d=drag; d.raf=null;
+      var listTop=listEl.getBoundingClientRect().top;
+      var pointerY=d.lastClientY-listTop;
+
+      var others=order.filter(function(id){ return id!==d.id; });
+      var target=others.length;
+      for(var i=0;i<others.length;i++){
+        var r=rowEl(others[i]);
+        if(pointerY < r.offsetTop + r.offsetHeight/2){ target=i; break; }
+      }
+      var newOrder=others.slice(0,target).concat([d.id]).concat(others.slice(target));
+      if(newOrder.join('|')!==order.join('|')){
+        order=newOrder;
+        var refNode = target<others.length ? rowEl(others[target]) : null;
+        listEl.insertBefore(d.el, refNode);
+        updateBadges();
+        markInteracted();
+      }
+
+      var deltaY=d.lastClientY-d.startClientY;
+      var translate=deltaY-(d.el.offsetTop-d.startOffsetTop);
+      d.el.style.transform='translateY('+translate+'px) scale(1.03)';
+    }
+    function onDragEnd(){
+      if(!drag) return;
+      var d=drag;
+      document.removeEventListener('pointermove', onDragMove);
+      document.removeEventListener('pointerup', onDragEnd);
+      document.removeEventListener('pointercancel', onDragEnd);
+      if(d.raf) cancelAnimationFrame(d.raf);
+      Array.prototype.forEach.call(listEl.children,function(r){ r.classList.remove('rank-row-settling'); });
+      d.el.style.transition = reduce?'none':'transform .18s var(--ease)';
+      d.el.style.transform='none';
+      var cleanup=function(){ d.el.classList.remove('dragging'); d.el.style.transition=''; d.el.style.transform=''; };
+      if(reduce) cleanup(); else setTimeout(cleanup,190);
+      drag=null;
+    }
+
+    renderRows();
+
+    continueBtn.addEventListener('click', function(){
+      if(continueBtn.disabled) return;
+      var archetypeResult=getArchetype()||'technician';
+      var rankingData=order.map(function(id,i){ return {id:id, rank:i+1}; });
+      try{ window.clarity && window.clarity('set','priority_ranking', JSON.stringify(rankingData)); }catch(e){}
+      try{ window.clarity && window.clarity('event','full_unlocked'); }catch(e){}
+      try{ window.gtag && window.gtag('event','full_unlocked', {
+        priority_rank_1: rankingData[0].id,
+        priority_rank_2: rankingData[1].id,
+        archetype: archetypeResult
+      }); }catch(e){}
+
+      unlockFullSite();
+      closeSheet();
+      showCenterPopup({
+        title:'🎉 Mở khoá thành công!',
+        body:'Bạn vừa mở thêm <b>Chân dung SoE giỏi</b>, <b>Năng lực cần build</b> & <b>Career path</b> — phần thú vị nhất vẫn còn ở phía trước. Đưa bạn tới đó ngay...',
+        autoCloseMs:2600,
+        onClose:function(){ if(window.soeActivateTab) window.soeActivateTab('chan-dung'); }
+      });
+    });
+
+    declineBtn.addEventListener('click', function(){
+      if(declineBtn.disabled) return;
+      var archetypeResult=getArchetype()||'technician';
+      var rankingData=order.map(function(id,i){ return {id:id, rank:i+1}; });
+      try{ window.clarity && window.clarity('set','priority_ranking', JSON.stringify(rankingData)); }catch(e){}
+      try{ window.clarity && window.clarity('event','ranking_declined'); }catch(e){}
+      try{ window.gtag && window.gtag('event','ranking_declined', {
+        priority_rank_1: rankingData[0].id,
+        priority_rank_2: rankingData[1].id,
+        archetype: archetypeResult
+      }); }catch(e){}
+
+      closeSheet();
+      showCenterPopup({
+        title:'Cảm ơn bạn 🙏',
+        body:'Cảm ơn đã dành thời gian tìm hiểu vị trí Solutions Engineer. Chúc bạn tìm được hướng đi phù hợp nhất với mình — hẹn gặp lại nếu bạn đổi ý!',
+        closeLabel:'Đóng'
+      });
+    });
+
+    function closeSheet(){
+      sheet.classList.remove('on');
+      backdrop.classList.remove('on');
+      document.documentElement.style.overflow='';
+      setTimeout(function(){ backdrop.remove(); sheet.remove(); }, reduce?0:300);
+    }
+    requestAnimationFrame(function(){ backdrop.classList.add('on'); sheet.classList.add('on'); });
+  }
+
+  function showCenterPopup(opts){
+    var overlay=el('div','rank-outcome-overlay');
+    var card=el('div','rank-outcome-card');
+    card.innerHTML='<h3>'+opts.title+'</h3><p>'+opts.body+'</p>'+
+      (opts.closeLabel ? '<button class="btn btn-primary" type="button">'+opts.closeLabel+'</button>' : '');
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+    requestAnimationFrame(function(){ overlay.classList.add('on'); });
+    function dismiss(){
+      overlay.classList.remove('on');
+      setTimeout(function(){ overlay.remove(); if(opts.onClose) opts.onClose(); }, reduce?0:250);
+    }
+    var btn=card.querySelector('button');
+    if(btn) btn.addEventListener('click', dismiss);
+    if(opts.autoCloseMs) setTimeout(dismiss, opts.autoCloseMs);
+  }
+
+  var fired=false;
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting && !fired){
+        fired=true;
+        io.unobserve(sentinel);
+        try{ window.clarity && window.clarity('event','read_gate_reached'); }catch(e){}
+        try{ window.gtag && window.gtag('event','read_gate_reached'); }catch(e){}
+        buildSheet();
+      }
+    });
+  });
+  io.observe(sentinel);
 })();

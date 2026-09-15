@@ -55,7 +55,7 @@ button{font-family:inherit;cursor:pointer}
 /* ============ LAYOUT ============ */
 .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:clamp(20px,3vw,40px)}
 section{scroll-margin-top:82px}
-.band{padding-block:clamp(40px,2.5rem + 2vw,76px)}
+.band{padding-top:clamp(24px,1.4rem + 1.5vw,44px);padding-bottom:clamp(40px,2.5rem + 2vw,76px)}
 .sec-head{max-width:var(--content-w);margin-inline:auto;text-align:center;margin-bottom:52px}
 @media(min-width:900px){.sec-head{max-width:1120px}}
 .sec-head p{max-width:64ch;margin-inline:auto}
@@ -401,34 +401,13 @@ table.salary td.hl{color:var(--brand-ink);font-weight:700;font-family:"JetBrains
 .check-item .box svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:scale(.5);transition:.2s cubic-bezier(.34,1.56,.64,1)}
 .check-item.on .box{background:var(--brand);border-color:var(--brand);animation:pop .3s cubic-bezier(.34,1.56,.64,1)}
 .check-item.on .box svg{opacity:1;transform:scale(1)}
-.check-item.on.neg .box{background:var(--neg);border-color:var(--neg)}
+.check-item.on.neg .box{background:var(--warm);border-color:var(--warm);font-size:13px}
+.check-item.on{border-color:var(--brand-100);background:var(--brand-soft)}
+.check-item.on.neg{border-color:#F3D0CE;background:var(--neg-soft)}
 @keyframes pop{0%{transform:scale(.85)}55%{transform:scale(1.12)}100%{transform:scale(1)}}
 .check-item p{font-size:.9rem;color:var(--ink-2)}
 .check-item.on p{color:var(--ink)}
-.check-progress{text-align:center;font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--ink-3);margin-bottom:10px}
 
-/* mini-quiz archetype (tab 02) — dùng chung style .acc, đóng mặc định */
-.quiz-box[open]{border-color:#D4CEFF}
-.quiz-box .ic{background:#F0EEFF;color:#6D5BD0}
-.quiz-box:hover .ic{background:#E3DEFF}
-.quiz-body{padding:0 20px 24px;text-align:center}
-.quiz-progress{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:.72rem;font-weight:600;color:#6D5BD0;background:#F0EEFF;padding:4px 12px;border-radius:var(--r-pill);margin-bottom:22px}
-.quiz-q{margin-bottom:22px;text-align:left}
-.quiz-q:last-of-type{margin-bottom:0}
-.quiz-qtext{font-size:.9rem;font-weight:600;margin-bottom:10px}
-.quiz-opts{display:grid;grid-template-columns:1fr;gap:8px}
-@media(min-width:640px){.quiz-opts{grid-template-columns:1fr 1fr}}
-.quiz-option{
-  text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:var(--r-sm);
-  padding:12px 14px;font-family:inherit;font-size:.85rem;color:var(--ink-2);cursor:pointer;transition:.15s var(--ease);line-height:1.5;
-}
-.quiz-option:hover{border-color:#D4CEFF;background:#F7F6FF}
-.quiz-option.on{border-color:#6D5BD0;background:#EFECFB;color:var(--ink);font-weight:600}
-.quiz-result{margin-top:8px;padding-top:22px;border-top:1px solid var(--line);display:none;text-align:center}
-.quiz-result.on{display:block;animation:resultIn .35s cubic-bezier(.34,1.56,.64,1) forwards}
-.quiz-result b{display:block;font-size:1.05rem;color:#6D5BD0;margin-bottom:8px}
-.quiz-result p{font-size:.88rem;color:var(--ink-2);max-width:60ch;margin-inline:auto;margin-bottom:6px}
-.quiz-result .btn{margin-top:12px}
 .result{margin-top:14px;padding:18px 20px;border-radius:var(--r);border:1px solid var(--line);display:none;transform:scale(.96);opacity:0}
 .result.on{display:block;animation:resultIn .35s cubic-bezier(.34,1.56,.64,1) forwards}
 @keyframes resultIn{to{transform:scale(1);opacity:1}}
@@ -561,6 +540,15 @@ table.salary td.hl{color:var(--brand-ink);font-weight:700;font-family:"JetBrains
 .arch-result b{display:block;font-size:1.15rem;margin-bottom:8px}
 .arch-result p{font-size:.86rem;color:rgba(255,255,255,.75);max-width:44ch;margin:0 auto 18px;line-height:1.6}
 .arch-result .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* overlay toàn màn hình cho quiz archetype bắt buộc đầu trang — tái dùng nguyên style .arch-gate ở trên */
+.arch-overlay{
+  position:fixed;inset:0;z-index:999;
+  background:rgba(10,17,36,.86);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;overflow-y:auto;
+}
+.arch-overlay .arch-gate{max-width:480px;width:100%;margin:auto;box-shadow:var(--sh-2)}
 /* nút tắt/bật âm thanh trong game */
 .flappy-sound{
   position:relative;flex-shrink:0;width:26px;height:26px;border-radius:50%;
@@ -649,6 +637,7 @@ table.salary td.hl{color:var(--brand-ink);font-weight:700;font-family:"JetBrains
 .maintabs button.locked{opacity:.4;cursor:not-allowed}
 .maintabs button.locked:hover{background:transparent;color:var(--ink-2)}
 .maintabs button .lock{opacity:.7}
+.maintabs button.tab-hidden{display:none!important}
 
 /* ============ RESPONSIVE ============ */
 @media(min-width:640px){
@@ -661,6 +650,46 @@ table.salary td.hl{color:var(--brand-ink);font-weight:700;font-family:"JetBrains
   .g-3{grid-template-columns:repeat(3,1fr)}
   .g-4{grid-template-columns:repeat(4,1fr)}
 }
+/* ============ PRIORITY RANKING GATE — bottom-sheet cuối tab "phù hợp" ============ */
+#rank-gate-sentinel{height:1px}
+.rank-sheet-backdrop{position:fixed;inset:0;z-index:900;background:rgba(10,17,36,.55);opacity:0;transition:opacity .25s var(--ease)}
+.rank-sheet-backdrop.on{opacity:1}
+.rank-sheet{
+  position:fixed;left:0;right:0;bottom:0;z-index:901;max-height:82vh;
+  display:flex;flex-direction:column;background:var(--surface);
+  border-radius:var(--r-lg) var(--r-lg) 0 0;box-shadow:var(--sh-2);
+  padding:22px 20px calc(18px + env(safe-area-inset-bottom,0px));
+  transform:translateY(100%);transition:transform .3s var(--ease);
+}
+.rank-sheet.on{transform:none}
+.rank-sheet-head{flex-shrink:0;margin-bottom:14px}
+.rank-sheet-head h3{font-size:1.1rem;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.rank-sheet-instr{font-size:.88rem;color:var(--ink-2);margin-bottom:4px}
+.rank-sheet-sub{font-size:.78rem;color:var(--ink-3);font-style:italic;line-height:1.5}
+.rank-list{position:relative;overflow-y:auto;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:8px;padding:4px 2px;margin:0 -2px}
+.rank-row{position:relative;display:flex;align-items:center;gap:10px;min-height:50px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r-sm);background:#fff;box-shadow:var(--sh-1)}
+.rank-row.dragging{z-index:5;box-shadow:var(--sh-2);border-color:var(--brand-100);cursor:grabbing}
+.rank-row.rank-row-settling{transition:transform .18s var(--ease)}
+.rank-badge{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--brand-soft);color:var(--brand-ink);font-family:"JetBrains Mono",monospace;font-weight:700;font-size:.78rem;display:grid;place-items:center}
+.rank-label{flex:1;font-size:.88rem;color:var(--ink);line-height:1.4}
+.rank-arrows{display:flex;flex-direction:column;gap:2px;flex-shrink:0}
+.rank-arrow{border:1px solid var(--line);background:#fff;color:var(--ink-2);width:22px;height:18px;border-radius:5px;font-size:.6rem;line-height:1;display:grid;place-items:center;cursor:pointer;font-family:inherit}
+.rank-arrow:hover{border-color:var(--brand-100);color:var(--brand-ink)}
+.rank-handle{flex-shrink:0;color:var(--ink-3);font-size:1.1rem;cursor:grab;padding:4px 2px;touch-action:none;line-height:1}
+.rank-sheet-foot{flex-shrink:0;margin-top:16px}
+.rank-sheet-foot .btn{width:100%;justify-content:center}
+.rank-sheet-foot .btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.rank-sheet-foot-2col{display:flex;gap:10px}
+.rank-sheet-foot-2col .btn{flex:1;justify-content:center}
+
+/* popup giữa màn hình — kết quả sau khi kéo-thả xong (mở khoá / cảm ơn khi từ chối) */
+.rank-outcome-overlay{position:fixed;inset:0;z-index:910;background:rgba(10,17,36,.72);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;transition:opacity .25s var(--ease)}
+.rank-outcome-overlay.on{opacity:1}
+.rank-outcome-card{max-width:420px;width:100%;background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--sh-2);padding:28px 24px;text-align:center}
+.rank-outcome-card h3{font-size:1.15rem;margin-bottom:10px}
+.rank-outcome-card p{font-size:.9rem;color:var(--ink-2);line-height:1.6;margin-bottom:16px}
+.rank-outcome-card .btn{width:100%;justify-content:center}
+
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .reveal,.stagger>*{opacity:1;transform:none;transition:none}
@@ -669,10 +698,10 @@ table.salary td.hl{color:var(--brand-ink);font-weight:700;font-family:"JetBrains
   .tabpanel-main{transition:none}
   .maintabs button,.card,.chip,.check-item,.tl-card,.acc .ic,.venn .node .ic{transition:none}
   .check-item.on .box{animation:none}
-  .result.on,.quiz-result.on{animation:none;transform:none;opacity:1}
-  .quiz-option{transition:none}
+  .result.on{animation:none;transform:none;opacity:1}
   .flappy-bird.flapping{animation:none}
   .flappy.hit{animation:none}
   .arch-opt{transition:none}
   .confetti-bit{animation:none;display:none}
+  .rank-sheet,.rank-sheet-backdrop,.rank-row.rank-row-settling,.rank-outcome-overlay{transition:none}
 }

@@ -346,7 +346,8 @@
           </svg></div>
         <span class="eyebrow center">02 — Chân dung SoE giỏi</span>
         <h2 class="title">4 archetype, và tỷ lệ lý tưởng thay đổi theo từng giai đoạn</h2>
-        <p>Bạn đang gần nhất với dạng nào? Technician là nền móng bắt buộc — Consultant được build lên trên.</p>
+        <p id="chan-dung-intro">Bạn đang gần nhất với dạng nào? Technician là nền móng bắt buộc — Consultant được build
+          lên trên.</p>
       </div>
 
       <div class="stage-gate" data-stage="1"></div>
@@ -406,71 +407,6 @@
           </div>
         </details>
       </div>
-
-      <details class="acc quiz-box reveal" style="margin-bottom:26px">
-        <summary>
-          <span class="ic"><svg>
-              <use href="#i-spark" />
-            </svg></span>
-          <span class="st"><b>Bạn giống archetype nào nhất?</b><span>Trắc nghiệm nhanh 4 câu — bấm để bắt
-              đầu</span></span>
-          <span class="chev">▾</span>
-        </summary>
-        <div class="quiz-body">
-          <span class="quiz-progress" id="quiz-progress">Đã trả lời 0/4</span>
-          <div class="quiz-q" data-q="0">
-            <p class="quiz-qtext">1. Gặp một bài toán mới của khách hàng, phản xạ đầu tiên của bạn là gì?</p>
-            <div class="quiz-opts">
-              <button class="quiz-option" type="button" data-arch="technician">Mở ngay hệ thống, thử cấu hình xem giải
-                pháp nào khả thi</button>
-              <button class="quiz-option" type="button" data-arch="storyteller">Kể một câu chuyện tương tự đã từng gặp
-                để tạo kết nối trước</button>
-              <button class="quiz-option" type="button" data-arch="consultant">Hỏi thêm để hiểu vì sao bài toán này quan
-                trọng với họ lúc này</button>
-              <button class="quiz-option" type="button" data-arch="hybrid">Nghĩ ngay ai trong team từng gặp case tương
-                tự để hỏi kinh nghiệm</button>
-            </div>
-          </div>
-          <div class="quiz-q" data-q="1">
-            <p class="quiz-qtext">2. Bạn tự tin nhất khi nào?</p>
-            <div class="quiz-opts">
-              <button class="quiz-option" type="button" data-arch="technician">Khi bị hỏi sâu chi tiết kỹ thuật của sản
-                phẩm</button>
-              <button class="quiz-option" type="button" data-arch="storyteller">Khi đứng trước đám đông kể chuyện, tạo
-                cảm xúc</button>
-              <button class="quiz-option" type="button" data-arch="consultant">Khi ngồi với người ra quyết định bàn
-                chiến lược</button>
-              <button class="quiz-option" type="button" data-arch="hybrid">Khi hướng dẫn, coach một người mới</button>
-            </div>
-          </div>
-          <div class="quiz-q" data-q="2">
-            <p class="quiz-qtext">3. Điều bạn ngại nhất trong công việc?</p>
-            <div class="quiz-opts">
-              <button class="quiz-option" type="button" data-arch="technician">Phải nói chuyện phiếm thay vì đi thẳng
-                vào vấn đề</button>
-              <button class="quiz-option" type="button" data-arch="storyteller">Bị hỏi dồn chi tiết kỹ thuật mình chưa
-                nắm chắc</button>
-              <button class="quiz-option" type="button" data-arch="consultant">Phải bán một thứ mà bạn biết khách không
-                thực sự cần</button>
-              <button class="quiz-option" type="button" data-arch="hybrid">Chỉ làm một mình, không ai để chia sẻ hay
-                nhân bản cách làm</button>
-            </div>
-          </div>
-          <div class="quiz-q" data-q="3">
-            <p class="quiz-qtext">4. Bạn muốn được nhớ đến vì điều gì?</p>
-            <div class="quiz-opts">
-              <button class="quiz-option" type="button" data-arch="technician">Người nắm chắc sản phẩm nhất
-                team</button>
-              <button class="quiz-option" type="button" data-arch="storyteller">Người truyền cảm hứng, ai cũng thích nói
-                chuyện cùng</button>
-              <button class="quiz-option" type="button" data-arch="consultant">Người khách hàng tin tưởng tuyệt đối như
-                cố vấn riêng</button>
-              <button class="quiz-option" type="button" data-arch="hybrid">Người xây được cả một đội ngũ giỏi</button>
-            </div>
-          </div>
-          <div class="quiz-result" id="quiz-result"></div>
-        </div>
-      </details>
 
       <div class="mixwrap reveal" style="margin-bottom:26px">
         <p style="font-size:.95rem;font-weight:600;margin-bottom:4px">Tỷ lệ lý tưởng — thay đổi theo giai đoạn</p>
@@ -788,13 +724,12 @@
       <p class="row-label"
         style="font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);text-align:center;margin-bottom:14px">
         Tự check trước khi apply</p>
-      <div class="check-progress" id="check-progress">Đã chọn 0/8</div>
       <div class="reveal" id="checklist"></div>
       <div class="result" id="check-result"></div>
 
       <div class="finalcta-inline reveal">
         <span class="eyebrow center">Câu hỏi cuối trước khi apply</span>
-        <h2>"Sau 2 năm ở đây, tôi muốn là người biết làm gì?"</h2>
+        <h2>"Sau 3 năm ở đây, tôi muốn là người biết làm gì?"</h2>
         <p class="q">Nếu câu trả lời là: có thể ngồi với CEO của bất kỳ doanh nghiệp nào và có ích ngay lập tức — thì
           apply.</p>
         <div class="actions">
@@ -804,6 +739,7 @@
         </div>
         <div class="fine">Tuyển đủ sẽ đóng — không có deadline cố định.</div>
       </div>
+      <div id="rank-gate-sentinel" aria-hidden="true"></div>
     </div>
   </section>
 
